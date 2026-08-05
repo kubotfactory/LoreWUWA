@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverberation - เสียงกังวาน</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.8;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #262626;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        /* ปุ่มย้อนกลับ */
+        .back-btn {
+            display: inline-block;
+            color: #0066ff;
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .back-btn:hover {
+            color: #3385ff;
+        }
+
+        /* รูปภาพปก 1:1 */
+        .cover-wrapper {
+            width: 100%;
+            max-width: 450px;
+            aspect-ratio: 1 / 1;
+            margin: 0 auto 2rem auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .cover-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .meta-info {
+            text-align: center;
+            color: #888888;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #3a3a3a;
+            padding-bottom: 1rem;
+        }
+
+        /* เนื้อหาบทความ */
+        .article-content {
+            font-size: 1.05rem;
+            color: #d1d1d1;
+        }
+
+        .article-content p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+        }
+
+        .article-content h2 {
+            font-size: 1.4rem;
+            color: #0066ff;
+            margin: 2rem 0 1rem 0;
+            border-left: 4px solid #0066ff;
+            padding-left: 0.8rem;
+        }
+
+        /* กล่องเน้นข้อความ */
+        .highlight-box {
+            background: #333333;
+            border-left: 4px solid #0066ff;
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: #666666;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- ปุ่มย้อนกลับไปหน้าหลัก -->
+        <a href="index.html" class="back-btn">&larr; กลับหน้าหลัก</a>
+
+        <!-- รูปปกบทความ 1:1 -->
+        <div class="cover-wrapper">
+            <img src="https://scontent.fphs1-1.fna.fbcdn.net/v/t39.99422-6/758564085_1315572500658159_2034590226139337321_n.png?stp=dst-jpg_tt6&cstp=mx2048x2048&ctp=s2048x2048&_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_ohc=gOeKplLnrzsQ7kNvwEK2-ES&_nc_oc=Adrlogyx2c2rDOIVsG9l2wEXSKH77yxot5d1pkHG_TT2O1enF0q0qsbBl7HZb9UT2xo&_nc_zt=14&_nc_ht=scontent.fphs1-1.fna&_nc_gid=lcpY8CfO72Iu55IAncVdsg&_nc_ss=7b2a8&oh=00_AQEYbVx2wVe5l8bhcWXzgT_1RGNrCrF69_-4n58BQ_pgFg&oe=6A78C765" alt="Reverberation Cover">
+        </div>
+
+        <h1>Reverberation - เสียงกังวาน | ย้อนรอย ย้อนลอร์ Part 1</h1>
+        <div class="meta-info">หมวดหมู่: Lore Analysis | เผยแพร่เมื่อ: 5 สิงหาคม 2026</div>
+
+        <article class="article-content">
+            <p>ก่อนอื่นเราต้องมาทำความรู้จักกับ <strong>Reverberation</strong> กันก่อน... เพื่อจะได้เห็นภาพหลักการทำงานของ Reverberation ใน Solaris-3 ได้อย่างชัดเจน และสามารถคิดตามได้</p>
+
+            <h2>1. Reverberation ในทางวิศวกรรมเสียงและดนตรี</h2>
+            <p><strong>Reverberation ในทางวิศวกรรมเสียง...</strong> คือปรากฏการณ์ที่เสียงยังคงเด่นชัดอยู่ภายในพื้นที่หนึ่งๆ แม้ว่าแหล่งกำเนิดเสียงต้นแบบจะหยุดสั่นสะเทือนไปแล้ว... ปรากฏการณ์นี้เกิดจากการที่คลื่นเสียงเดินทางไปตกกระทบกับพื้นผิวรอบข้าง เช่น ผนัง เพดาน และพื้น แล้วเกิดการสะท้อนกลับไปกลับมานับพันครั้งต่อวินาที จนรวมกันกลายเป็นหางเสียง (Reverb Tail) ที่ค่อยๆ ลดระดับความดังลงตามค่าเวลาการก้องสะท้อน (RT60)</p>
+
+            <p>โครงสร้างของ Reverberation ในทางดนตรีประกอบด้วยสามส่วนหลัก ได้แก่:</p>
+            <ul>
+                <li><strong>Direct Sound (เสียงตรง):</strong> เดินทางจากแหล่งกำเนิดถึงผู้ฟังโดยตรง</li>
+                <li><strong>Early Reflections:</strong> เสียงที่สะท้อนจากพื้นผิวหลักเพียงไม่กี่ครั้ง บอกถึงขนาดและรูปทรงของห้อง</li>
+                <li><strong>Late Reverberation (Reverb Tail):</strong> คลื่นสะท้อนซ้ำซ้อนหนาแน่นที่ค่อยๆ จางหายไปในความเงียบ</li>
+            </ul>
+
+            <div class="highlight-box">
+                Direct Sound ในทางดนตรีเปรียบเสมือนสารตั้งต้นก่อนเกิด Lament ซึ่งเป็นข้อมูลและสสารต้นฉบับที่ยังคงความสมบูรณ์ 100% ขณะที่สภาพแวดล้อมและผนังห้องที่ทำให้เกิดการสะท้อนเปรียบได้กับปรากฏการณ์ Waveworn Phenomenon ที่บิดเบือนและกระจายคลื่นความถี่ไปทั่วทั้งโลก... Reverb Tail ที่ค่อยๆ ดับสูญไปตามกาลเวลาในทางดนตรี มีกลไกตรงกับสภาวะการย่อยสลายที่ไม่สามารถย้อนกลับได้ของ Reverberations ในเกม
+            </div>
+
+            <p>ในแวดวงดนตรีสมัยใหม่ มีการใช้เทคโนโลยี <em>Convolution Reverb</em> ซึ่งทำหน้าที่ถอดรหัสและบันทึกค่าการสั่นสะเทือนของห้องจริงผ่านการสุ่มตัวอย่างที่เรียกว่า <em>Impulse Response</em>... เพื่อนำไปจำลองเสียงในห้องอัด กระบวนการนี้มีความคล้ายคลึงกับ Terminal ในเกม ที่ทำหน้าที่สแกนและบันทึก Reverberation ของ Tacet Discord ก่อนที่มันจะสลายตัว เพื่อนำมาจำลองเป็น Echo ไว้ใช้งานในการต่อสู้</p>
+
+            <h2>2. ข้อมูล Reverberation ใน Solaris-3</h2>
+            <p>หลังภัยพิบัติ The Lament โครงสร้างทางกายภาพ ข้อมูล และกฎเกณฑ์ทางธรรมชาติบนดาวเคราะห์ Solaris-3 ได้ถูกบิดเบือนไปอย่างสิ้นเชิง ภัยพิบัติดังกล่าวได้ทิ้งร่องรอยการกัดเซาะที่เรียกว่า <strong>Waveworn Phenomenon</strong> ซึ่งแปรสภาพสสาร ข้อมูล และพลังงานในธรรมชาติให้กลายเป็นรูปแบบของคลื่นความถี่...</p>
+            
+            <p>ภายใต้สภาวะแวดล้อมใหม่นี้ คำว่า Reverberation ได้กลายเป็นมโนทัศน์ทางวิทยาศาสตร์หลักที่ใช้อธิบายรูปแบบพลังงานความถี่ตกค้าง ซึ่งเกิดจากการสลายตัวของพลังงานต้นกำเนิด และยังคงสลายตัวอย่างต่อเนื่องตามกาลเวลา</p>
+
+            <p>ในสภาวะแรกเริ่ม มวลสารและความทรงจำของสิ่งต่างๆ ที่พังทลายจะถูกควบแน่นเป็นพลังงานบริสุทธิ์ที่เรียกว่า <strong>Remnant</strong> ซึ่งถูกเก็บกักไว้ภายในพื้นที่มิติ Sonoro Sphere แม้พลังงานในสภาวะ Remnant จะมีความสมบูรณ์เชิงข้อมูลสูง แต่ก็ไม่สามารถจับต้องหรือนำมาวิเคราะห์ได้โดยตรง เมื่อเวลาผ่านไป Remnant จะเริ่มย่อยสลายและแผ่กระจายออกเป็น Reverberation</p>
+
+            <p>นักวิจัยใน Solaris-3 ตรวจพบว่ากระบวนการแปรสภาพจาก Remnant ไปสู่ Reverberation เป็นกระบวนการทางธรรมชาติที่ไม่สามารถย้อนกลับได้ คลื่นความถี่ Reverberation นี้จะมีค่าพลังงานสั่นสะเทือนสูงสุดในจุดเริ่มต้น และจะลดทอนความเข้มข้นลงเรื่อยๆ ตามธรรมชาติของการสูญเสียพลังงาน</p>
+
+            <h2>3. Tacet Discords และปรากฏการณ์ธรรมชาติ</h2>
+            <p>การก่อตัวของ Tacet Discords เกิดจากการควบแน่นของความถี่โกลาหลภายในพื้นที่ Tacet Fields โครงสร้างที่สำคัญที่สุดในการคงอยู่ของ Tacet Discords คือแกนกลางที่เรียกว่า <strong>Tacet Core</strong> ซึ่งในทางวิชาการถูกเรียกว่า <em>Reverberation Body (กายสะท้อน)</em></p>
+
+            <p>เนื่องจาก Reverberation มีธรรมชาติที่ต้องสลายตัวลงอย่างต่อเนื่อง Tacet Discords จึงมีสัญชาตญาณในการออกล่าและกลืนกินความถี่ของมนุษย์ สัตว์ พืช หรือสิ่งก่อสร้าง เพื่อนำคลื่นความถี่ใหม่มาเติมเต็ม Tacet Core ของตนเอง ส่งผลให้พวกมันสามารถเลียนแบบรูปร่าง พฤติกรรม และทักษะของสิ่งชีวิตเหล่านั้นได้</p>
+
+            <p>นอกเหนือจากสิ่งมีชีวิต... Reverberation ยังเป็นองค์ประกอบหลักของปรากฏการณ์ระดับภัยพิบัติ เช่น:</p>
+            <ul>
+                <li><strong>Tacet Field:</strong> พื้นที่ที่มีรอยตรา Tacet Mark เกิดขึ้นบนพื้นดิน รวบรวมคลื่นความถี่หนาแน่นและเชื่อมต่อมิติปัจจุบันเข้ากับมิติอันเป็นปริศนาผ่านสายความถี่สีขาว</li>
+                <li><strong>Retroact Rain (ฝนย้อนกลับ):</strong> เมื่อหยาดฝนปะทะกับคลื่น Reverberation ตกค้างในอากาศ ส่งผลให้เกิดการฉายภาพเหตุการณ์ในอดีตซ้ำขึ้นมาผ่านการสั่นสะเทือนของความถี่</li>
+            </ul>
+
+            <h2>4. การนำไปใช้ประโยชน์ขององค์กรต่างๆ</h2>
+            <p><strong>Black Shores</strong> ได้นำ Reverberation มาใช้ประโยชน์ผ่านระบบ Tethys โดยการเก็บรวบรวมตัวอย่าง Reverberation จากพื้นที่ประสบภัยพิบัติทั่วโลก... คลื่นความถี่ตกค้างเหล่านี้จะถูกนำมาโหลดเข้าสู่การจำลอง เพื่อสร้างสภาวะก่อนเกิดภัยพิบัติ Lament ขึ้นมาใหม่ วิธีการนี้ช่วยให้นักวิจัยสามารถวิเคราะห์เหตุการณ์ประวัติศาสตร์ ย้อนรอยพื้นที่ความเสียหาย และวางแผนป้องกันภัยพิบัติได้อย่างมีประสิทธิภาพ</p>
+
+            <p>ในทางการทหาร การค้นพบแร่ <strong>Tacetite</strong> ซึ่งมีคุณสมบัติในการกักเก็บพลังงาน Remnant และ Reverberation ได้อย่างถาวร นำไปสู่การสร้างอาวุธ Tacetite ที่ปล่อยพลังงานสั่นสะเทือนเพื่อกำจัด Tacet Discords ได้โดยตรง</p>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 Ku-Bot Factory. All rights reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

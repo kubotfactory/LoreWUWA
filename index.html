@@ -3,81 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Article Hub - คลังบทความ</title>
+    <title>Article Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-main: #212529;
-            --text-muted: #6c757d;
-            --accent-color: #0d6efd;
-            --border-color: #e9ecef;
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Sukhumvit Set', 'Segoe UI', Tahoma, sans-serif;
+            font-family: 'Kanit', sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: #262626;
+            color: #ffffff;
             line-height: 1.6;
-        }
-
-        /* Header */
-        header {
-            background-color: var(--card-bg);
-            border-bottom: 1px solid var(--border-color);
             padding: 2rem 1rem;
-            text-align: center;
         }
 
-        header h1 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        header p {
-            color: var(--text-muted);
-        }
-
-        /* Container & Grid */
         .container {
-            max-width: 1100px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+
+        /* Grid Layout */
         .article-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 1.5rem;
         }
 
-        /* Article Card */
+        /* Card Style */
         .card {
-            background: var(--card-bg);
-            border-radius: 8px;
+            background: #676767;
+            border-radius: 10px;
             overflow: hidden;
-            border: 1px solid var(--border-color);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
             display: flex;
             flex-direction: column;
         }
 
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+        .card-img-wrapper {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background-color: #444;
         }
 
-        .card-img {
+        .card-img-wrapper img {
             width: 100%;
-            height: 180px;
-            background-color: #dee2e6;
+            height: 100%;
             object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-img-wrapper img {
+            transform: scale(1.05);
         }
 
         .card-body {
@@ -87,116 +73,85 @@
             flex-grow: 1;
         }
 
-        .tag {
-            align-self: flex-start;
-            background-color: #e7f1ff;
-            color: var(--accent-color);
-            font-size: 0.75rem;
-            font-weight: bold;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            margin-bottom: 0.75rem;
-            text-transform: uppercase;
-        }
-
-        .card-title {
-            font-size: 1.2rem;
+        .card h3 {
+            font-size: 1.15rem;
             margin-bottom: 0.5rem;
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 600;
+            color: #ffffff;
         }
 
-        .card-title:hover {
-            color: var(--accent-color);
-        }
-
-        .card-excerpt {
-            color: var(--text-muted);
-            font-size: 0.9rem;
+        .card p {
+            color: #e0e0e0;
+            font-size: 0.875rem;
             margin-bottom: 1rem;
             flex-grow: 1;
         }
 
-        .card-meta {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border-color);
-            padding-top: 0.75rem;
-            display: flex;
-            justify-content: space-between;
+        /* ปุ่มลิงก์เชื่อมโยงไปหน้าอื่น */
+        .btn-read {
+            display: block;
+            text-align: center;
+            background-color: #0066ff;
+            color: white;
+            text-decoration: none;
+            padding: 0.6rem 1rem;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.2s;
+            width: 100%;
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border-color);
-            margin-top: 3rem;
-            background-color: var(--card-bg);
+        .btn-read:hover {
+            background-color: #0052cc;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Knowledge Archive</h1>
-        <p>รวมบทความ วิเคราะห์เนื้อเรื่อง และบันทึกสรุปข้อมูล</p>
-    </header>
-
     <div class="container">
-        <div class="article-grid">
-            
-            <!-- Card 1 -->
-            <article class="card">
-                <img src="https://via.placeholder.com/400x200" alt="Cover Image" class="card-img">
-                <div class="card-body">
-                    <span class="tag">Lore Analysis</span>
-                    <a href="#" class="card-title">ถอดความหมายและแนวคิดเบื้องหลังพลังงานคลื่นเสียง</a>
-                    <p class="card-excerpt">เจาะลึกโครงสร้างอักขระและการตีความหมายของสภาวะการสะท้อนพลังงานในอารยธรรมโบราณ...</p>
-                    <div class="card-meta">
-                        <span>โดย Admin</span>
-                        <span>5 ส.ค. 2026</span>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Card 2 -->
-            <article class="card">
-                <img src="https://via.placeholder.com/400x200" alt="Cover Image" class="card-img">
-                <div class="card-body">
-                    <span class="tag">Design</span>
-                    <a href="#" class="card-title">สรุปหลักการวาง Typography สำหรับวิดีโอสั้น</a>
-                    <p class="card-excerpt">เทคนิคการเลือกฟอนต์และการจัดวางระยะบรรทัดให้ซับไทยอ่านง่ายสบายตาบนหน้าจอมือถือ...</p>
-                    <div class="card-meta">
-                        <span>โดย Admin</span>
-                        <span>3 ส.ค. 2026</span>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Card 3 -->
-            <article class="card">
-                <img src="https://via.placeholder.com/400x200" alt="Cover Image" class="card-img">
-                <div class="card-body">
-                    <span class="tag">Hardware</span>
-                    <a href="#" class="card-title">เทคนิคการบริหาร RAM และ Background Apps</a>
-                    <p class="card-excerpt">แนวทางการตั้งค่าระบบปฏิบัติการสมาร์ตโฟนให้ประมวลผลได้เต็มประสิทธิภาพโดยไม่กินทรัพยากรเกินจำเป็น...</p>
-                    <div class="card-meta">
-                        <span>โดย Admin</span>
-                        <span>1 ส.ค. 2026</span>
-                    </div>
-                </div>
-            </article>
-
-        </div>
+        <h1>ย้อนรอย ย้อนลอร์ - Ku-Bot-Factory</h1>
+        <div class="article-grid" id="articleGrid"></div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 Article Hub. All rights reserved.</p>
-    </footer>
+    <script>
+        // กำหนด Path ลิงก์ไปยังไฟล์ .html ใน Root เดียวกันทั้งหมด
+        const articles = [
+            {
+                title: 'Reverberation - เสียงกังวาน | ย้อนรอย ย้อนลอร์ Part 1',
+                image: 'https://scontent.fphs1-1.fna.fbcdn.net/v/t39.99422-6/758564085_1315572500658159_2034590226139337321_n.png?stp=dst-jpg_tt6&cstp=mx2048x2048&ctp=s2048x2048&_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_ohc=gOeKplLnrzsQ7kNvwEK2-ES&_nc_oc=Adrlogyx2c2rDOIVsG9l2wEXSKH77yxot5d1pkHG_TT2O1enF0q0qsbBl7HZb9UT2xo&_nc_zt=14&_nc_ht=scontent.fphs1-1.fna&_nc_gid=lcpY8CfO72Iu55IAncVdsg&_nc_ss=7b2a8&oh=00_AQEYbVx2wVe5l8bhcWXzgT_1RGNrCrF69_-4n58BQ_pgFg&oe=6A78C765',
+                excerpt: 'เจาะลึกโครงสร้างพลังงานคลื่นเสียงตกค้าง กลไกทางวิศวกรรมดนตรี และการกำเนิดภัยพิบัติบน Solaris-3...',
+                url: 'reverberation.html' // ไฟล์อยู่ใน Root เดียวกัน
+            },
+            {
+                title: 'เทคนิคการวาง Typography สำหรับงานตัดต่อวิดีโอสั้น',
+                image: 'https://picsum.photos/400/400?random=2',
+                excerpt: 'การเลือกฟอนต์และวางระยะบรรทัดซับไทยให้อ่านง่ายบนจอมือถือ...',
+                url: 'typography-guide.html' // ไฟล์อยู่ใน Root เดียวกัน
+            },
+            {
+                title: 'เจาะลึกโครงสร้างคลื่นเสียง',
+                image: 'https://picsum.photos/400/400?random=1',
+                excerpt: 'เกริ่นนำเกี่ยวกับแนวคิดและทฤษฎีการสะท้อนของคลื่นกังวาน...',
+                url: 'sound-wave.html' // ไฟล์อยู่ใน Root เดียวกัน
+            }
+        ];
 
+        function renderArticles() {
+            const grid = document.getElementById('articleGrid');
+            grid.innerHTML = articles.map(item => `
+                <div class="card">
+                    <div class="card-img-wrapper">
+                        <img src="${item.image}" alt="${item.title}">
+                    </div>
+                    <div class="card-body">
+                        <h3>${item.title}</h3>
+                        <p>${item.excerpt}</p>
+                        <a href="${item.url}" class="btn-read">อ่านบทความ</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        renderArticles();
+    </script>
 </body>
 </html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Hub - คลังบทความ</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #212529;
+            --text-muted: #6c757d;
+            --accent-color: #0d6efd;
+            --border-color: #e9ecef;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Sukhumvit Set', 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-muted);
+        }
+
+        /* Container & Grid */
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Article Card */
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            background-color: #dee2e6;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .tag {
+            align-self: flex-start;
+            background-color: #e7f1ff;
+            color: var(--accent-color);
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .card-title:hover {
+            color: var(--accent-color);
+        }
+
+        .card-excerpt {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .card-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+            background-color: var(--card-bg);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Knowledge Archive</h1>
+        <p>รวมบทความ วิเคราะห์เนื้อเรื่อง และบันทึกสรุปข้อมูล</p>
+    </header>
+
+    <div class="container">
+        <div class="article-grid">
+            
+            <!-- Card 1 -->
+            <article class="card">
+                <img src="https://via.placeholder.com/400x200" alt="Cover Image" class="card-img">
+                <div class="card-body">
+                    <span class="tag">Lore Analysis</span>
+                    <a href="#" class="card-title">ถอดความหมายและแนวคิดเบื้องหลังพลังงานคลื่นเสียง</a>
+                    <p class="card-excerpt">เจาะลึกโครงสร้างอักขระและการตีความหมายของสภาวะการสะท้อนพลังงานในอารยธรรมโบราณ...</p>
+                    <div class="card-meta">
+                        <span>โดย Admin</span>
+                        <span>5 ส.ค. 2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="card">
+                <img src="https://via.placeholder.com/400x200" alt="Cover Image" class="card-img">
+                <div class="card-body">
+                    <span class="tag">Design</span>
+                    <a href="#" class="card-title">สรุปหลักการวาง Typography สำหรับวิดีโอสั้น</a>
+                    <p class="card-excerpt">เทคนิคการเลือกฟอนต์และการจัดวางระยะบรรทัดให้ซับไทยอ่านง่ายสบายตาบนหน้าจอมือถือ...</p>
+                    <div class="card-meta">
+                        <span>โดย Admin</span>
+                        <span>3 ส.ค. 2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="card">
+                <img src="https://via.placeholder.com/400x200" alt="Cover Image" class="card-img">
+                <div class="card-body">
+                    <span class="tag">Hardware</span>
+                    <a href="#" class="card-title">เทคนิคการบริหาร RAM และ Background Apps</a>
+                    <p class="card-excerpt">แนวทางการตั้งค่าระบบปฏิบัติการสมาร์ตโฟนให้ประมวลผลได้เต็มประสิทธิภาพโดยไม่กินทรัพยากรเกินจำเป็น...</p>
+                    <div class="card-meta">
+                        <span>โดย Admin</span>
+                        <span>1 ส.ค. 2026</span>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Article Hub. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

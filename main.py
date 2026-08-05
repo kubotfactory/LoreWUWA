@@ -1,11 +1,11 @@
-from fastapi import FastAPI
+from fasthtml.common import *
 
-app = FastAPI()
+app, rt = fast_app()
 
-@app.get("/")
-def read_root():
-    return {"message": "Hello World from Vercel"}
+@rt('/')
+def get():
+    return Div(H1('Hello World from FastHTML on Vercel!'))
 
-@app.get("/api/health")
-def health_check():
-    return {"status": "ok"}
+# ห้ามเรียก serve() ลอยๆ ให้ใส่เงื่อนไขนี้ไว้สำหรับรันในเครื่องตัวเองเท่านั้น
+if __name__ == '__main__':
+    serve()

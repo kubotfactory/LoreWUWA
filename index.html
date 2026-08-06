@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ku-Lore Archive - Wuthering Waves Lore Archive</title>
+    <!-- โหลด CryptoJS สำหรับถอดรหัสผ่าน Password -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #0b0d12;
+            --card-bg: #141822;
+            --accent-cyan: #00f0ff;
+            --accent-gold: #e5c158;
+            --text-main: #e2e8f0;
+            --text-muted: #8a99ad;
+            --border-color: #232938;
+            --hover-border: rgba(0, 240, 255, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            width: 100vw;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- Fullscreen Hero Banner --- */
+        .hero-banner {
+            width: 100%;
+            aspect-ratio: 5 / 1;
+            min-height: 220px;
+            position: relative;
+            background-color: #111726;
+            background-image: 
+                linear-gradient(180deg, rgba(11, 13, 18, 0.3) 0%, rgba(11, 13, 18, 0.95) 100%),
+                url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .banner-subtitle {
+            color: var(--accent-cyan);
+            font-size: clamp(0.8rem, 1.5vw, 1.1rem);
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+        }
+
+        .banner-title {
+            color: #ffffff;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 900;
+            letter-spacing: 6px;
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.7), 0 0 40px rgba(0, 0, 0, 0.9);
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        /* --- Main Layout --- */
+        .main-wrapper {
+            max-width: 1350px;
+            margin: 0 auto;
+            padding: 40px 25px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 35px;
+        }
+
+        /* --- Left Category Menu --- */
+        .sidebar-menu {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px 20px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .menu-title {
+            color: var(--accent-cyan);
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .category-item a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.98rem;
+            transition: all 0.25s ease;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .category-item a:hover, .category-item.active a {
+            background: rgba(0, 240, 255, 0.08);
+            color: var(--accent-cyan);
+            border-color: rgba(0, 240, 255, 0.3);
+            transform: translateX(4px);
+        }
+
+        .category-count {
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 8px;
+            border-radius: 12px;
+            color: var(--text-muted);
+        }
+
+        .category-item.active .category-count {
+            background: var(--accent-cyan);
+            color: #000;
+            font-weight: bold;
+        }
+
+        /* --- Right Section: Articles Tile Grid --- */
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 1.6rem;
+            color: #ffffff;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-header h2::before {
+            content: "▌";
+            color: var(--accent-cyan);
+        }
+
+        .article-tiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 25px;
+        }
+
+        .article-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+        }
+
+        .article-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--hover-border);
+            box-shadow: 0 12px 30px rgba(0, 240, 255, 0.15);
+        }
+
+        .card-image-wrapper {
+            width: 100%;
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+            background: #1a202c;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .article-card:hover .card-image {
+            transform: scale(1.08);
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(11, 13, 18, 0.85);
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 6px;
+            backdrop-filter: blur(4px);
+            text-transform: uppercase;
+        }
+
+        .card-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1.18rem;
+            color: #ffffff;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            transition: color 0.2s ease;
+        }
+
+        .article-card:hover .card-title {
+            color: var(--accent-cyan);
+        }
+
+        .card-excerpt {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        .card-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 12px;
+            margin-top: auto;
+        }
+
+        .read-more-link {
+            color: var(--accent-gold);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .footer {
+            margin-top: 80px;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: #080a0e;
+        }
+
+        /* --- Admin Modal & Toggle Style --- */
+        .admin-toggle-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 999;
+            transition: all 0.2s;
+        }
+        .admin-toggle-btn:hover {
+            background: var(--accent-cyan);
+            color: #000;
+        }
+
+        .admin-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .admin-modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            padding: 25px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            color: var(--text-main);
+            overflow-y: auto;
+        }
+
+        .admin-input, .admin-textarea {
+            width: 100%;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: inherit;
+        }
+
+        .admin-textarea {
+            height: 350px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .admin-btn {
+            background: var(--accent-cyan);
+            color: #000;
+            font-weight: bold;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .admin-btn-red {
+            background: #ff4d4d;
+            color: #fff;
+        }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 992px) {
+            .main-wrapper { grid-template-columns: 1fr; }
+            .sidebar-menu { position: relative; top: 0; }
+            .category-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+        }
+
+        @media (max-width: 600px) {
+            .hero-banner { aspect-ratio: 3 / 1; min-height: 180px; }
+            .main-wrapper { padding: 20px 15px; }
+            .article-tiles-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FULLSCREEN BANNER -->
+    <div class="hero-banner">
+        <div class="banner-subtitle">Wuthering Waves • Lore Archive Hub</div>
+        <h1 class="banner-title">Ku-Lore Archive</h1>
+    </div>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+        <aside class="sidebar-menu">
+            <div class="menu-title">🌐 หมวดหมู่เนื้อหา</div>
+            <ul class="category-list">
+                <li class="category-item active">
+                    <a data-category="all">
+                        <span>ทั้งหมด</span>
+                        <span class="category-count" id="count-all">6</span>
+                    </a>
+                </li>
+                <li class="category-item">
+                    <a data-category="เนื้อเรื่องหลัก">
+                        <span>เนื้อเรื่องหลัก</span>
+                        <span class="category-count" id="count-main">3</span>
+                    </a>
+                </li>
+                <li class="category-item">
+                    <a data-category="ตัวละคร & องค์กร">
+                        <span>ตัวละคร & องค์กร</span>
+                        <span class="category-count" id="count-char">2</span>
+                    </a>
+                </li>
+                <li class="category-item">
+                    <a data-category="ประวัติศาสตร์ Sol3">
+                        <span>ประวัติศาสตร์ Sol3</span>
+                        <span class="category-count" id="count-history">1</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="content-area">
+            <div class="section-header">
+                <h2 id="selected-category-title">บทความทั้งหมด</h2>
+                <span style="color: var(--text-muted); font-size: 0.9rem;">คุย Lore ไม่คุย Leak</span>
+            </div>
+
+            <div class="article-tiles-grid" id="article-grid">
+                <a href="wuthering_waves_fullwidth.html" class="article-card" data-category="เนื้อเรื่องหลัก">
+                    <div class="card-image-wrapper">
+                        <span class="card-tag">เนื้อเรื่องหลัก</span>
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" alt="Lament Story" class="card-image">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">จุดเริ่มต้นแห่งเสียงคลื่น: ถอดรหัสหายนะและโลกหลังเหตุการณ์ Lament</h3>
+                        <p class="card-excerpt">เจาะลึกปูมหลังของจักรวาล Sol3 มหาวิบัติ Lament ที่ทำลายอารยธรรมมนุษย์ และจุดกำเนิดของปรากฏการณ์สสารความถี่</p>
+                        <div class="card-meta">
+                            <span>อัปเดต: ล่าสุด</span>
+                            <span class="read-more-link">อ่านต่อ →</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="article-card" data-category="ตัวละคร & องค์กร">
+                    <div class="card-image-wrapper">
+                        <span class="card-tag">ตัวละคร & องค์กร</span>
+                        <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?q=80&w=800&auto=format&fit=crop" alt="Black Shores" class="card-image">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">เจาะลึกองค์กร Black Shores: ผู้เฝ้ามองภัยพิบัติแห่งความถี่</h3>
+                        <p class="card-excerpt">ทำความรู้จักองค์กรปริศนาผู้อยู่เบื้องหลังการปกป้องโลก Sol3 จากการล่มสลายและภัยคุกคามของ Tacet Discords</p>
+                        <div class="card-meta">
+                            <span>อัปเดต: 2 วันที่แล้ว</span>
+                            <span class="read-more-link">อ่านต่อ →</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="article-card" data-category="เนื้อเรื่องหลัก">
+                    <div class="card-image-wrapper">
+                        <span class="card-tag">เนื้อเรื่องหลัก</span>
+                        <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop" alt="Huanglong Territory" class="card-image">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">พันธมิตร Huanglong และ 6 มณฑลแห่งการปกป้อง</h3>
+                        <p class="card-excerpt">วิเคราะห์ระบบการปกครอง อาณาเขต และศาลเทพสิงสถิต Sentinel ผู้ค้ำจุนสันติภาพของมหาอำนาจแห่งตะวันออก</p>
+                        <div class="card-meta">
+                            <span>อัปเดต: 5 วันที่แล้ว</span>
+                            <span class="read-more-link">อ่านต่อ →</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="article-card" data-category="ประวัติศาสตร์ Sol3">
+                    <div class="card-image-wrapper">
+                        <span class="card-tag">ประวัติศาสตร์ Sol3</span>
+                        <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop" alt="Tacet Discords" class="card-image">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">กำเนิด Tacet Discords: อสูรกายสสารและการจำลองความทรงจำ</h3>
+                        <p class="card-excerpt">สรุปกลไกการเกิด Tacet Field และเหตุผลที่ TD สามารถเลียนแบบเสียงและความทรงจำในอดีตของมนุษย์ได้</p>
+                        <div class="card-meta">
+                            <span>อัปเดต: 1 สัปดาห์ที่แล้ว</span>
+                            <span class="read-more-link">อ่านต่อ →</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="article-card" data-category="ตัวละคร & องค์กร">
+                    <div class="card-image-wrapper">
+                        <span class="card-tag">ตัวละคร & องค์กร</span>
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" alt="Resonators" class="card-image">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">ไขปริศนา Resonator: การตื่นของพลังและ Tacet Mark บนร่างกาย</h3>
+                        <p class="card-excerpt">ทำไมมนุษย์บางคนถึงสามารถปรับความถี่ตนเองกับธรรมชาติได้ และสัญลักษณ์บนร่างบอกอะไรเกี่ยวกับระดับพลัง</p>
+                        <div class="card-meta">
+                            <span>อัปเดต: 2 สัปดาห์ที่แล้ว</span>
+                            <span class="read-more-link">อ่านต่อ →</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="article-card" data-category="เนื้อเรื่องหลัก">
+                    <div class="card-image-wrapper">
+                        <span class="card-tag">เนื้อเรื่องหลัก</span>
+                        <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop" alt="Rover" class="card-image">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Rover คือใคร? รวบรวมเบาะแสตัวตนของผู้ตื่นจากการหลับใหล</h3>
+                        <p class="card-excerpt">เจาะรายละเอียดบทบาทของ Rover ตั้งแต่เริ่มตื่นขึ้นมา ความเชื่อมโยงกับ Sentinel และความลับของพลังไร้ขีดจำกัด</p>
+                        <div class="card-meta">
+                            <span>อัปเดต: 2 สัปดาห์ที่แล้ว</span>
+                            <span class="read-more-link">อ่านต่อ →</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <div class="footer">
+        <p>© 2026 Ku-Bot Factory • All rights reserved.</p>
+    </div>
+
+    <!-- BUTTON & MODAL EDITOR -->
+    <button class="admin-toggle-btn" onclick="toggleAdminModal()">⚙️ โหมดแก้ไข (Admin)</button>
+
+    <div id="admin-modal" class="admin-modal hidden">
+        <div class="admin-modal-content">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3 style="color:var(--accent-cyan);">🛠️ GitHub Web Content Editor</h3>
+                <button onclick="toggleAdminModal()" style="background:none; border:none; color:#fff; cursor:pointer; font-size:1.2rem;">✖</button>
+            </div>
+
+            <!-- Login Panel (อัปเดตเป็น Username + Password) -->
+            <div id="admin-login-box">
+                <p style="margin-bottom:10px; font-size:0.9rem; color:var(--text-muted);">กรอก Username และ Password ผู้ดูแลระบบ</p>
+                <input type="text" id="admin-username-input" class="admin-input" placeholder="กรอก Username Admin" style="margin-bottom:10px;">
+                <input type="password" id="admin-password-input" class="admin-input" placeholder="กรอกรหัสผ่าน Admin">
+                <button onclick="adminLogin()" class="admin-btn" style="margin-top:10px; width:100%;">เข้าสู่ระบบ Editor</button>
+            </div>
+
+            <!-- Editor Panel -->
+            <div id="admin-editor-box" class="hidden">
+                <div style="display:flex; gap:10px; margin-bottom:10px;">
+                    <input type="text" id="gh-filepath" class="admin-input" value="h_2.html" placeholder="ชื่อไฟล์ (เช่น h_2.html)">
+                    <button onclick="loadGithubFile()" class="admin-btn" style="white-space:nowrap;">ดึงเนื้อหาล่าสุด</button>
+                    <button onclick="adminLogout()" class="admin-btn admin-btn-red" style="white-space:nowrap;">ออกระบบ</button>
+                </div>
+                <textarea id="gh-filecontent" class="admin-textarea" placeholder="กดดึงข้อมูลไฟล์ก่อนเพื่อแก้ไข..."></textarea>
+                <button onclick="saveGithubFile()" class="admin-btn" style="margin-top:10px; width:100%;">💾 บันทึกและ Push ขึ้น GitHub</button>
+                <div id="admin-status" style="margin-top:10px; font-weight:bold; font-size:0.9rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- GitHub API Configurations ---
+        const GITHUB_OWNER = 'kubotfactory'; 
+        const GITHUB_REPO = 'LoreWUWA'; 
+        const GITHUB_BRANCH = 'main'; 
+
+        // บรรทัด 415: นำ Ciphertext ที่ถูกเข้ารหัสด้วย (Username + Password) มาวางที่นี่
+        const ENCRYPTED_PAT = 'U2FsdGVkX195ZzugVFGh4rrlZLB5/QJTCs1f+yonaykLscyl/A7otIEiAC4LaUIIqBTaVMwaHfMypCqN+bgq60IJFa8utuv5Ayih3lcjkuQoo6v1hhFNutqxucDC7CkXvbcRd0cApn0fy8AJ1k3NYw==';
+
+        let currentFileSha = '';
+        let decryptedToken = '';
+
+        function toggleAdminModal() {
+            const modal = document.getElementById('admin-modal');
+            modal.classList.toggle('hidden');
+            const savedUser = localStorage.getItem('admin_user');
+            const savedPass = localStorage.getItem('admin_pass');
+            if (!modal.classList.contains('hidden') && savedUser && savedPass) {
+                attemptUnlock(savedUser, savedPass);
+            }
+        }
+
+        function adminLogin() {
+            const user = document.getElementById('admin-username-input').value.trim();
+            const pass = document.getElementById('admin-password-input').value.trim();
+            
+            if (!user || !pass) return alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+            
+            if (attemptUnlock(user, pass)) {
+                localStorage.setItem('admin_user', user);
+                localStorage.setItem('admin_pass', pass);
+            } else {
+                alert('Username หรือ Password ไม่ถูกต้อง');
+            }
+        }
+
+        function attemptUnlock(username, password) {
+            try {
+                // ผสม Username + Password เป็น Secret Key ในการถอดรหัส
+                const secretKey = username + password;
+                const bytes = CryptoJS.AES.decrypt(ENCRYPTED_PAT, secretKey);
+                const originalToken = bytes.toString(CryptoJS.enc.Utf8);
+
+                if (originalToken.startsWith('ghp_') || originalToken.startsWith('github_pat_')) {
+                    decryptedToken = originalToken;
+                    showEditorUI();
+                    return true;
+                }
+            } catch (e) {
+                console.error(e);
+            }
+            return false;
+        }
+
+        function adminLogout() {
+            localStorage.removeItem('admin_user');
+            localStorage.removeItem('admin_pass');
+            decryptedToken = '';
+            document.getElementById('admin-login-box').classList.remove('hidden');
+            document.getElementById('admin-editor-box').classList.add('hidden');
+        }
+
+        function showEditorUI() {
+            document.getElementById('admin-login-box').classList.add('hidden');
+            document.getElementById('admin-editor-box').classList.remove('hidden');
+            loadGithubFile();
+        }
+
+        async function loadGithubFile() {
+            const path = document.getElementById('gh-filepath').value;
+            const status = document.getElementById('admin-status');
+            status.style.color = '#00f0ff';
+            status.innerText = 'กำลังโหลดข้อมูลจาก GitHub...';
+
+            try {
+                const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}?ref=${GITHUB_BRANCH}`, {
+                    headers: { 'Authorization': `token ${decryptedToken}` }
+                });
+
+                if (!res.ok) throw new Error('ดึงข้อมูลไม่สำเร็จ ตรวจสอบ Username/Repo หรือ Token');
+
+                const data = await res.json();
+                currentFileSha = data.sha;
+                
+                // Decode UTF-8 Base64
+                const decodedContent = decodeURIComponent(escape(atob(data.content)));
+                document.getElementById('gh-filecontent').value = decodedContent;
+                status.innerText = 'โหลดไฟล์สำเร็จ!';
+            } catch (err) {
+                status.style.color = '#ff4d4d';
+                status.innerText = 'เกิดข้อผิดพลาด: ' + err.message;
+            }
+        }
+
+        async function saveGithubFile() {
+            const path = document.getElementById('gh-filepath').value;
+            const content = document.getElementById('gh-filecontent').value;
+            const status = document.getElementById('admin-status');
+
+            if (!currentFileSha) return alert('กรุณากดดึงข้อมูลไฟล์ก่อนบันทึก');
+
+            status.style.color = '#e5c158';
+            status.innerText = 'กำลังบันทึกและ Push ข้อมูล...';
+
+            // Encode UTF-8 Base64
+            const encodedContent = btoa(unescape(encodeURIComponent(content)));
+
+            try {
+                const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${decryptedToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Update page content via Admin Web Editor',
+                        content: encodedContent,
+                        sha: currentFileSha,
+                        branch: GITHUB_BRANCH
+                    })
+                });
+
+                if (!res.ok) throw new Error('บันทึกไม่สำเร็จ');
+
+                const data = await res.json();
+                currentFileSha = data.content.sha;
+                status.style.color = '#00f0ff';
+                status.innerText = '✅ บันทึกและ Push ขึ้น GitHub เรียบร้อยแล้ว!';
+            } catch (err) {
+                status.style.color = '#ff4d4d';
+                status.innerText = 'เกิดข้อผิดพลาดในการบันทึก: ' + err.message;
+            }
+        }
+
+        // --- Category Filtering ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const categoryLinks = document.querySelectorAll('.category-item a');
+            const articleCards = document.querySelectorAll('.article-card');
+            const sectionTitle = document.getElementById('selected-category-title');
+
+            categoryLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    document.querySelectorAll('.category-item').forEach(item => item.classList.remove('active'));
+                    link.parentElement.classList.add('active');
+
+                    const selectedCategory = link.getAttribute('data-category');
+
+                    articleCards.forEach(card => {
+                        const cardCategory = card.getAttribute('data-category');
+                        if (selectedCategory === 'all' || cardCategory === selectedCategory) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+
+                    if (selectedCategory === 'all') {
+                        sectionTitle.textContent = 'บทความทั้งหมด';
+                    } else {
+                        sectionTitle.textContent = selectedCategory;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

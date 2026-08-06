@@ -177,7 +177,7 @@
 
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 20px;
         }
 
@@ -197,17 +197,24 @@
             border-color: var(--accent-cyan);
         }
 
+        /* 1:1 Aspect Ratio Tile Image */
         .card-image-wrap {
             position: relative;
-            height: 180px;
             width: 100%;
+            aspect-ratio: 1 / 1;
             cursor: pointer;
+            overflow: hidden;
         }
 
         .card-image-wrap img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-image-wrap img {
+            transform: scale(1.05);
         }
 
         .card-badge {
@@ -220,6 +227,7 @@
             font-weight: bold;
             padding: 3px 8px;
             border-radius: 4px;
+            z-index: 2;
         }
 
         .card-admin-actions {
@@ -296,6 +304,7 @@
             font-weight: 600;
         }
 
+        /* POPUP MODAL STYLES (MATCHING CUSTOM LAYOUT) */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -324,8 +333,8 @@
             border: 1px solid var(--accent-cyan);
             border-radius: 16px;
             width: 95%;
-            max-width: 1400px;
-            height: 92vh;
+            max-width: 1000px;
+            max-height: 90vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -342,15 +351,15 @@
 
         .modal-close {
             position: absolute;
-            top: 20px;
-            right: 25px;
+            top: 15px;
+            right: 20px;
             background: rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
-            width: 44px;
-            height: 44px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             line-height: 1;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -369,46 +378,118 @@
 
         .modal-scroll-area {
             overflow-y: auto;
-            height: 100%;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Top Layout (Red on Left, Blue/Cyan/Yellow/Orange/Green on Right) */
+        .modal-header-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        /* Red Zone: 1:1 Image */
+        .modal-img-wrap {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .modal-img {
             width: 100%;
-            height: 40vh;
-            min-height: 250px;
+            height: 100%;
             object-fit: cover;
         }
 
-        .modal-body {
-            padding: 35px 40px;
+        .modal-meta-col {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
+        /* Blue Zone: Article Title */
+        .modal-title {
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            color: #fff;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        /* Cyan Zone: Category Badge */
         .modal-badge {
             display: inline-block;
+            align-self: flex-start;
             background-color: var(--badge-bg);
             color: #000;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: bold;
             padding: 4px 12px;
             border-radius: 4px;
-            margin-bottom: 16px;
         }
 
-        .modal-title {
-            font-size: clamp(1.5rem, 3vw, 2.2rem);
-            color: #fff;
-            margin-bottom: 20px;
-            line-height: 1.4;
+        /* Yellow & Orange Zones: Dates */
+        .modal-dates-row {
+            display: flex;
+            gap: 15px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px 12px;
+            border-radius: 6px;
+            width: fit-content;
         }
 
-        .modal-text {
+        .date-item span {
             color: var(--text-main);
-            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        /* Green Zone: Tags / Specific Keywords Container */
+        .modal-tags-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 10px 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .modal-tags-label {
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+            margin-right: 4px;
+        }
+
+        .tag-pill {
+            background: #1e2532;
+            color: var(--text-main);
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* White Zone: Main Body Content */
+        .modal-body-content {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            color: var(--text-main);
+            font-size: 1rem;
             line-height: 1.8;
             font-weight: 300;
             white-space: pre-line;
         }
 
+        /* FORM MODAL & AUTH */
         .form-modal-container {
             background-color: var(--card-bg);
             border: 1px solid var(--accent-cyan);
@@ -537,15 +618,19 @@
             color: #fff;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 768px) {
             .container {
                 grid-template-columns: 1fr;
                 width: 95%;
             }
-            .modal-container {
-                height: 95vh;
+            .modal-header-grid {
+                grid-template-columns: 1fr;
             }
-            .modal-body {
+            .modal-img-wrap {
+                max-width: 250px;
+                margin: 0 auto;
+            }
+            .modal-scroll-area {
                 padding: 20px;
             }
         }
@@ -598,17 +683,41 @@
         </main>
     </div>
 
-    <!-- 1. POPUP READ ARTICLE MODAL -->
+    <!-- 1. POPUP READ ARTICLE MODAL (MATCHING IMAGE LAYOUT) -->
     <div class="modal-overlay" id="article-modal">
         <div class="modal-container">
             <button class="modal-close" id="modal-close-btn">&times;</button>
             <div class="modal-scroll-area">
-                <img src="" alt="" class="modal-img" id="modal-img">
-                <div class="modal-body">
-                    <span class="modal-badge" id="modal-badge"></span>
-                    <h2 class="modal-title" id="modal-title"></h2>
-                    <div class="modal-text" id="modal-text"></div>
+                <!-- Top Layout Grid -->
+                <div class="modal-header-grid">
+                    <!-- Red: Image 1:1 -->
+                    <div class="modal-img-wrap">
+                        <img src="" alt="" class="modal-img" id="modal-img">
+                    </div>
+                    
+                    <div class="modal-meta-col">
+                        <!-- Blue: Title -->
+                        <h2 class="modal-title" id="modal-title"></h2>
+                        
+                        <!-- Cyan: Category -->
+                        <span class="modal-badge" id="modal-badge"></span>
+                        
+                        <!-- Yellow & Orange: Dates -->
+                        <div class="modal-dates-row">
+                            <div class="date-item">สร้าง: <span id="modal-created">-</span></div>
+                            <div class="date-item">| ล่าสุด: <span id="modal-updated">-</span></div>
+                        </div>
+
+                        <!-- Green: Specific Keywords / Tags Box -->
+                        <div class="modal-tags-box" id="modal-tags-box">
+                            <span class="modal-tags-label">🏷️ คำเฉพาะ:</span>
+                            <div id="modal-tags-list" style="display: flex; gap: 6px; flex-wrap: wrap;"></div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- White: Main Body Content -->
+                <div class="modal-body-content" id="modal-text"></div>
             </div>
         </div>
     </div>
@@ -637,6 +746,11 @@
                 <div class="form-group">
                     <label>ลิงก์รูปภาพ (URL)</label>
                     <input type="url" class="form-control" id="form-image" required placeholder="https://example.com/image.jpg">
+                </div>
+
+                <div class="form-group">
+                    <label>คำเฉพาะ / คีย์เวิร์ด (คั่นด้วยเครื่องหมายจุลภาค ,)</label>
+                    <input type="text" class="form-control" id="form-tags" placeholder="เช่น Sol3, Lament, Rover, Sentinel">
                 </div>
 
                 <div class="form-group">
@@ -689,7 +803,6 @@
     </button>
 
     <script>
-        // GitHub Dynamic Credentials (ไม่เก็บลงไฟล์ HTML เพื่อความปลอดภัย)
         let GITHUB_USERNAME = "";
         let REPO_NAME = "";
         let GITHUB_TOKEN = "";
@@ -709,6 +822,9 @@
         const modalImg = document.getElementById('modal-img');
         const modalBadge = document.getElementById('modal-badge');
         const modalTitle = document.getElementById('modal-title');
+        const modalCreated = document.getElementById('modal-created');
+        const modalUpdated = document.getElementById('modal-updated');
+        const modalTagsList = document.getElementById('modal-tags-list');
         const modalText = document.getElementById('modal-text');
 
         const formModal = document.getElementById('form-modal');
@@ -722,6 +838,7 @@
         const inputTitle = document.getElementById('form-title');
         const inputCategory = document.getElementById('form-category');
         const inputImage = document.getElementById('form-image');
+        const inputTags = document.getElementById('form-tags');
         const inputSummary = document.getElementById('form-summary');
         const inputContent = document.getElementById('form-content');
 
@@ -736,7 +853,6 @@
         const adminBtnIcon = document.getElementById('admin-btn-icon');
         const adminBtnText = document.getElementById('admin-btn-text');
 
-        // โหลดข้อมูลบทความจากไฟล์ articles.json บน GitHub
         async function loadArticlesFromJSON() {
             try {
                 const response = await fetch(`./${FILE_PATH}?t=${Date.now()}`);
@@ -752,7 +868,6 @@
             renderCards();
         }
 
-        // ยิง GitHub REST API เพื่อบันทึกข้อมูลกลับไปยัง Repository
         async function saveArticlesToGitHub(updatedArticles) {
             btnSaveSubmit.disabled = true;
             btnSaveSubmit.textContent = "กำลัง Commit ลง GitHub...";
@@ -760,7 +875,6 @@
             const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`;
             
             try {
-                // Step 1: ดึง SHA เดิมของไฟล์
                 let fileSha = "";
                 const getFile = await fetch(url, {
                     headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
@@ -771,11 +885,9 @@
                     fileSha = fileData.sha;
                 }
 
-                // Step 2: แปลงโครงสร้างภาษาไทยเป็น Base64 UTF-8
                 const contentString = JSON.stringify(updatedArticles, null, 2);
                 const encodedContent = btoa(unescape(encodeURIComponent(contentString)));
 
-                // Step 3: PUT Request เพื่อ Commit ไฟล์
                 const response = await fetch(url, {
                     method: 'PUT',
                     headers: {
@@ -790,7 +902,7 @@
                 });
 
                 if (response.ok) {
-                    alert('บันทึกลง GitHub สำเร็จ! (รอ GitHub Pages บิลด์ประมาณ 30-60 วินาที)');
+                    alert('บันทึกลง GitHub สำเร็จ!');
                     articles = updatedArticles;
                     renderCards();
                     closeFormModal();
@@ -850,7 +962,7 @@
                             <h3 class="card-title">${article.title}</h3>
                             <p class="card-text">${article.summary}</p>
                             <div class="card-footer">
-                                <span>อัปเดต: ${article.updated}</span>
+                                <span>อัปเดต: ${article.updated || article.updatedAt || 'ล่าสุด'}</span>
                                 <span class="read-more">อ่านต่อ &rarr;</span>
                             </div>
                         </div>
@@ -873,7 +985,6 @@
             });
         });
 
-        // Admin Auth Toggle
         btnToggleAdmin.addEventListener('click', () => {
             if (isAdmin) {
                 isAdmin = false;
@@ -891,7 +1002,6 @@
             }
         });
 
-        // ตรวจสอบ Token เมื่อกดปลดล็อก
         authForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -901,7 +1011,6 @@
 
             authError.style.display = 'none';
 
-            // ทดสอบ Token โดยการยิง API
             try {
                 const checkRes = await fetch(`https://api.github.com/repos/${tempUser}/${tempRepo}`, {
                     headers: { 'Authorization': `token ${tempToken}` }
@@ -935,9 +1044,24 @@
             const article = articles.find(a => a.id === articleId);
             if (!article) return;
 
+            const nowStr = new Date().toLocaleDateString('th-TH');
+
             modalImg.src = article.image;
             modalBadge.textContent = article.categoryName;
             modalTitle.textContent = article.title;
+            modalCreated.textContent = article.createdAt || article.created || nowStr;
+            modalUpdated.textContent = article.updatedAt || article.updated || 'ล่าสุด';
+
+            // Tag Rendering
+            modalTagsList.innerHTML = '';
+            const tags = article.tags || (article.title.match(/[A-Za-z0-9]+/g) || ['General']);
+            tags.forEach(tag => {
+                const span = document.createElement('span');
+                span.className = 'tag-pill';
+                span.textContent = tag.trim();
+                modalTagsList.appendChild(span);
+            });
+
             modalText.textContent = article.content;
             readModal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -967,6 +1091,7 @@
             inputTitle.value = article.title;
             inputCategory.value = article.category;
             inputImage.value = article.image;
+            inputTags.value = article.tags ? article.tags.join(', ') : '';
             inputSummary.value = article.summary;
             inputContent.value = article.content;
 
@@ -982,7 +1107,6 @@
 
         btnCancelForm.addEventListener('click', closeFormModal);
 
-        // จัดการ Submit เพิ่ม / แก้ไข บทความ
         articleForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
@@ -990,8 +1114,10 @@
             const title = inputTitle.value;
             const category = inputCategory.value;
             const image = inputImage.value;
+            const tags = inputTags.value ? inputTags.value.split(',').map(t => t.trim()).filter(Boolean) : [];
             const summary = inputSummary.value;
             const content = inputContent.value;
+            const todayStr = new Date().toLocaleDateString('th-TH');
 
             let updatedArticles = [...articles];
 
@@ -1004,8 +1130,10 @@
                         category,
                         categoryName: getCategoryName(category),
                         image,
+                        tags,
                         summary,
                         content,
+                        updatedAt: todayStr,
                         updated: 'แก้ไขเมื่อครู่นี้'
                     };
                 }
@@ -1018,16 +1146,17 @@
                     summary,
                     content,
                     image,
+                    tags,
+                    createdAt: todayStr,
+                    updatedAt: todayStr,
                     updated: 'เพิ่งสร้าง'
                 };
                 updatedArticles.unshift(newArticle);
             }
 
-            // บันทึกขึ้น GitHub
             saveArticlesToGitHub(updatedArticles);
         });
 
-        // ลบบทความ
         function deleteArticle(event, articleId) {
             event.stopPropagation();
             if (confirm('คุณต้องการลบบทความนี้ใช่หรือไม่? การกระทำนี้จะ Commit ลบข้อมูลบน GitHub ทันที')) {
@@ -1036,7 +1165,6 @@
             }
         }
 
-        // เริ่มต้นโหลดข้อมูลบทความเมื่อเปิดหน้าเว็บ
         loadArticlesFromJSON();
     </script>
 </body>

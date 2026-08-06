@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Tool แปลง Token</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        body { background: #0b0d12; color: #fff; font-family: sans-serif; padding: 30px; display: flex; justify-content: center; }
+        .box { background: #141822; padding: 25px; border-radius: 12px; border: 1px solid #00f0ff; width: 100%; max-width: 500px; }
+        input { width: 100%; padding: 10px; margin: 8px 0; background: #0b0d12; border: 1px solid #232938; color: #fff; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #00f0ff; border: none; font-weight: bold; cursor: pointer; border-radius: 6px; margin-top: 10px; }
+        #result { margin-top: 15px; word-break: break-all; color: #e5c158; background: #0b0d12; padding: 10px; border-radius: 6px; border: 1px dashed #e5c158; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>🔒 เครื่องมือแปลง Token</h2>
+        <input type="text" id="user" placeholder="Username (เช่น kubot)">
+        <input type="password" id="pass" placeholder="Password (เช่น lol0oo00oo0)">
+        <input type="text" id="token" placeholder="Token ใหม่ (github_pat_...)">
+        <button onclick="gen()">กดสร้าง Ciphertext</button>
+        <div id="result">ผลลัพธ์จะแสดงตรงนี้...</div>
+    </div>
+
+    <script>
+        function gen() {
+            const u = document.getElementById('user').value.trim();
+            const p = document.getElementById('pass').value.trim();
+            const t = document.getElementById('token').value.trim();
+            
+            if(!u || !p || !t) return alert('กรอกข้อมูลให้ครบทุกช่อง');
+            
+            const secretKey = u + p;
+            const encrypted = CryptoJS.AES.encrypt(t, secretKey).toString();
+            document.getElementById('result').innerText = encrypted;
+        }
+    </script>
+</body>
+</html>

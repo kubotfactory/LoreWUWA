@@ -1108,7 +1108,7 @@
         }
 
         function updateCategoryCounts() {
-            document.getElementById('count-all').textContent = articles.length;
+            document.getElementById('count-all').textContent = articles.filter(a => a.category !== 'lyrics').length;
             document.getElementById('count-main').textContent = articles.filter(a => a.category === 'main').length;
             document.getElementById('count-history').textContent = articles.filter(a => a.category === 'history').length;
             document.getElementById('count-regions').textContent = articles.filter(a => a.category === 'regions').length;
@@ -1122,7 +1122,7 @@
             cardsContainer.innerHTML = '';
             
             let filteredArticles = activeCategory === 'all' 
-                ? [...articles] 
+                ? articles.filter(article => article.category !== 'lyrics') 
                 : articles.filter(article => article.category === activeCategory);
 
             const sortType = sortSelect ? sortSelect.value : 'date-new';

@@ -722,7 +722,7 @@
                     <span class="sub-tag">คุย Lore ไม่คุย Leak</span>
                 </div>
                 <div class="header-controls">
-                    <!-- 📍 ตัวเลือกเรียงลำดับถูกเพิ่มลงตรงนี้ (ตำแหน่งกรอบแดง) -->
+                    <!-- 📍 ตัวเลือกเรียงลำดับ -->
                     <select id="sort-select" class="sort-select" onchange="renderCards()">
                         <option value="name-asc">เรียงตามชื่อ (ก - ฮ / A - Z)</option>
                         <option value="name-desc">เรียงตามชื่อ (ฮ - ก / Z - A)</option>
@@ -796,9 +796,18 @@
                     </select>
                 </div>
 
+                <!-- ปรับเปลี่ยนให้รองรับทั้งเลือกไฟล์รูปภาพ และกรอก URL -->
                 <div class="form-group">
-                    <label>ลิงก์รูปภาพ (URL)</label>
-                    <input type="url" class="form-control" id="form-image" required placeholder="https://example.com/image.jpg">
+                    <label>รูปภาพปก (เลือกอัปโหลดไฟล์ หรือใส่ URL)</label>
+                    <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+                        <input type="file" id="form-image-file" accept="image/*" class="form-control" style="padding: 6px;">
+                        <input type="url" class="form-control" id="form-image" placeholder="หรือวางลิงก์ URL (https://...)">
+                    </div>
+                    <!-- ตัวแสดง Preview รูปภาพก่อนบันทึก -->
+                    <div id="image-preview-box" style="display: none; align-items: center; gap: 10px; margin-top: 8px; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 8px;">
+                        <img id="image-preview" src="" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
+                        <span id="image-preview-name" style="font-size: 0.8rem; color: var(--text-muted);"></span>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -922,6 +931,57 @@
             renderCards();
         }
 
+        // ฟังก์ชันแปลงไฟล์ภาพเป็น Base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        // ฟังก์ชันอัปโหลดภาพไปยัง GitHub โฟลเดอร์ ./image/cover/
+        async function uploadImageToGitHub(file) {
+            if (!isAdmin || !GITHUB_TOKEN) {
+                alert("กรุณาเข้าสู่ระบบ Admin เพื่ออัปโหลดไฟล์รูปภาพ");
+                return null;
+            }
+
+            const fileExt = file.name.split('.').pop();
+            const fileName = `cover_${Date.now()}.${fileExt}`;
+            const targetPath = `image/cover/${fileName}`;
+            const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${targetPath}`;
+
+            try {
+                const base64Content = await fileToBase64(file);
+
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: `Upload image: ${fileName}`,
+                        content: base64Content
+                    })
+                });
+
+                if (response.ok) {
+                    return `./image/cover/${fileName}`;
+                } else {
+                    const errData = await response.json();
+                    alert('เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ: ' + (errData.message || ''));
+                    return null;
+                }
+            } catch (error) {
+                console.error("Error uploading image:", error);
+                alert('ไม่สามารถเชื่อมต่อ GitHub เพื่ออัปโหลดรูปภาพได้');
+                return null;
+            }
+        }
+
         async function saveArticlesToGitHub(updatedArticles) {
             btnSaveSubmit.disabled = true;
             btnSaveSubmit.textContent = "กำลัง Commit ลง GitHub...";
@@ -1016,7 +1076,6 @@
                 } else if (sortType === 'date-old') {
                     return (a.id || 0) - (b.id || 0);
                 } else {
-                    // date-new (Default)
                     return (b.id || 0) - (a.id || 0);
                 }
             });
@@ -1157,6 +1216,7 @@
         btnOpenAddModal.addEventListener('click', () => {
             articleForm.reset();
             inputId.value = '';
+            document.getElementById('image-preview-box').style.display = 'none';
             formModalTitle.textContent = 'เพิ่มบทความใหม่';
             formModal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -1175,6 +1235,9 @@
             inputSummary.value = article.summary;
             inputContent.value = article.content;
 
+            document.getElementById('form-image-file').value = '';
+            document.getElementById('image-preview-box').style.display = 'none';
+
             formModalTitle.textContent = 'แก้ไขบทความ';
             formModal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -1187,13 +1250,52 @@
 
         btnCancelForm.addEventListener('click', closeFormModal);
 
-        articleForm.addEventListener('submit', (e) => {
+        // Preview รูปภาพเมื่อมีการเลือกไฟล์
+        document.getElementById('form-image-file').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const previewBox = document.getElementById('image-preview-box');
+            const previewImg = document.getElementById('image-preview');
+            const previewName = document.getElementById('image-preview-name');
+
+            if (file) {
+                previewImg.src = URL.createObjectURL(file);
+                previewName.textContent = file.name;
+                previewBox.style.display = 'flex';
+            } else {
+                previewBox.style.display = 'none';
+            }
+        });
+
+        // อัปเดตการ Submit Form สำหรับการอัปโหลดไฟล์
+        articleForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            const fileInput = document.getElementById('form-image-file');
+            let imagePath = inputImage.value.trim();
+
+            // หากมีการเลือกไฟล์ ให้ทำกระบวนการอัปโหลดไป GitHub ก่อน
+            if (fileInput.files.length > 0) {
+                btnSaveSubmit.disabled = true;
+                btnSaveSubmit.textContent = "กำลังอัปโหลดรูปภาพ...";
+
+                const uploadedPath = await uploadImageToGitHub(fileInput.files[0]);
+                if (uploadedPath) {
+                    imagePath = uploadedPath;
+                } else {
+                    btnSaveSubmit.disabled = false;
+                    btnSaveSubmit.textContent = "บันทึกข้อมูล";
+                    return;
+                }
+            }
+
+            if (!imagePath) {
+                alert("กรุณาเลือกไฟล์รูปภาพ หรือกรอก URL รูปภาพ");
+                return;
+            }
 
             const id = inputId.value;
             const title = inputTitle.value;
             const category = inputCategory.value;
-            const image = inputImage.value;
             const tags = inputTags.value ? inputTags.value.split(',').map(t => t.trim()).filter(Boolean) : [];
             const summary = inputSummary.value;
             const content = inputContent.value;
@@ -1209,7 +1311,7 @@
                         title,
                         category,
                         categoryName: getCategoryName(category),
-                        image,
+                        image: imagePath,
                         tags,
                         summary,
                         content,
@@ -1225,7 +1327,7 @@
                     title,
                     summary,
                     content,
-                    image,
+                    image: imagePath,
                     tags,
                     createdAt: todayStr,
                     updatedAt: todayStr,
@@ -1254,7 +1356,6 @@
                     e.preventDefault();
                     const start = this.selectionStart;
                     const end = this.selectionEnd;
-
                     const indent = "    "; 
 
                     this.value = this.value.substring(0, start) + indent + this.value.substring(end);
@@ -1262,22 +1363,22 @@
                 }
             });
         }
+
         // ปิด Popup ทุกตัวเมื่อกดปุ่ม ESC
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' || e.key === 'Esc') {
-        // ตรวจสอบว่ามี Modal ตัวไหนเปิดอยู่บ้าง แล้วปิดทันที
-            if (readModal.classList.contains('active')) {
-            closeReadModal();
-        }
-            if (formModal.classList.contains('active')) {
-            closeFormModal();
-        }
-            if (authModal.classList.contains('active')) {
-            authModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-    }
-});
+                if (readModal.classList.contains('active')) {
+                    closeReadModal();
+                }
+                if (formModal.classList.contains('active')) {
+                    closeFormModal();
+                }
+                if (authModal.classList.contains('active')) {
+                    authModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
     </script>
 </body>
 </html>

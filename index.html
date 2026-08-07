@@ -37,6 +37,7 @@
             background-color: var(--bg-dark);
             color: var(--text-main);
             min-height: 100vh;
+            padding-bottom: 60px;
         }
 
         .hero {
@@ -174,6 +175,29 @@
             border-color: var(--accent-yellow);
         }
 
+        .btn-add-article {
+            background: var(--accent-yellow);
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .admin-mode .btn-add-article {
+            display: flex;
+        }
+
+        .btn-add-article:hover {
+            box-shadow: 0 0 15px rgba(251, 204, 39, 0.5);
+            transform: translateY(-2px);
+        }
+
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -204,6 +228,11 @@
             overflow: hidden;
         }
 
+        /* สไตล์พิเศษสำหรับ Tile หมวดเนื้อเพลงแปลไทย (16:9) */
+        .card.card-lyrics .card-image-wrap {
+            aspect-ratio: 16 / 9;
+        }
+
         .card-image-wrap img {
             width: 100%;
             height: 100%;
@@ -228,6 +257,41 @@
             z-index: 2;
         }
 
+        .card-admin-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: none;
+            gap: 6px;
+            z-index: 5;
+        }
+
+        .admin-mode .card-admin-actions {
+            display: flex;
+        }
+
+        .btn-card-action {
+            background: rgba(11, 14, 20, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            transition: all 0.2s;
+        }
+
+        .btn-card-action:hover {
+            background: var(--accent-yellow);
+            color: #000;
+        }
+
+        .btn-card-action.delete:hover {
+            background: var(--danger-red);
+            color: #fff;
+        }
+
         .card-body {
             padding: 16px;
             display: flex;
@@ -242,6 +306,12 @@
             margin-bottom: 8px;
             line-height: 1.4;
             color: #fff;
+        }
+
+        /* ตกแต่ง card-title สำหรับ lyrics ให้ดูโดดเด่นขึ้น */
+        .card.card-lyrics .card-title {
+            margin-bottom: 0;
+            text-align: center;
         }
 
         .card-text {
@@ -289,7 +359,7 @@
             opacity: 1;
             visibility: visible;
         }
-
+        
         .modal-container {
             background-color: var(--card-bg);
             border: 1px solid var(--accent-yellow);
@@ -306,7 +376,8 @@
             transition: transform 0.25s ease-in-out;
         }
 
-        .modal-overlay.active .modal-container {
+        .modal-overlay.active .modal-container,
+        .modal-overlay.active .form-modal-container {
             transform: scale(1);
         }
 
@@ -352,12 +423,23 @@
             align-items: start;
         }
 
+        /* ปรับ Layout ให้สมดุลขึ้นเมื่ออยู่ในโหมดหมวดเนื้อเพลง */
+        .modal-container.lyrics-mode .modal-header-grid {
+            grid-template-columns: 420px 1fr;
+        }
+
         .modal-img-wrap {
             width: 100%;
             aspect-ratio: 1 / 1;
             border-radius: 10px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #000;
+            position: relative;
+        }
+
+        .modal-container.lyrics-mode .modal-img-wrap {
+            aspect-ratio: 16 / 9;
         }
 
         .modal-img {
@@ -446,6 +528,135 @@
         .modal-body-content p {
             text-indent: 2em;
             margin-bottom: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .form-modal-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--accent-yellow);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 0 30px rgba(251, 204, 39, 0.2);
+            transform: scale(0.95);
+            transition: transform 0.25s ease-in-out;
+        }
+
+        .auth-modal-container {
+            max-width: 480px;
+        }
+
+        .form-title {
+            font-size: 1.4rem;
+            color: var(--accent-yellow);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            background: #0d1017;
+            border: 1px solid #242c3d;
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: #fff;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-yellow);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .btn-submit {
+            background: var(--accent-yellow);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-cancel {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid #242c3d;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-cancel:hover {
+            color: #fff;
+        }
+
+        .error-msg {
+            color: var(--danger-red);
+            font-size: 0.8rem;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .admin-btn-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #11141c;
+            border: 1px solid var(--accent-yellow);
+            color: var(--accent-yellow);
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            transition: all 0.2s;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-btn-toggle:hover {
+            background-color: var(--accent-yellow);
+            color: #000;
+        }
+
+        .admin-mode .admin-btn-toggle {
+            border-color: var(--danger-red);
+            color: var(--danger-red);
+        }
+
+        .admin-mode .admin-btn-toggle:hover {
+            background-color: var(--danger-red);
+            color: #fff;
         }
 
         @media (max-width: 768px) {
@@ -453,11 +664,12 @@
                 grid-template-columns: 1fr;
                 width: 95%;
             }
-            .modal-header-grid {
+            .modal-header-grid,
+            .modal-container.lyrics-mode .modal-header-grid {
                 grid-template-columns: 1fr;
             }
             .modal-img-wrap {
-                max-width: 250px;
+                max-width: 100%;
                 margin: 0 auto;
             }
             .modal-scroll-area {
@@ -495,7 +707,7 @@
         }
 
         .copyright {
-            color: var(--accent-yellow, #fbcc27);
+            color: var(--accent-yellow, #8a99ad);
             font-size: 0.9rem;
             letter-spacing: 0.5px;
         }
@@ -572,6 +784,10 @@
                         <option value="date-new" selected>สร้างล่าสุด</option>
                         <option value="date-old">สร้างเก่าสุด</option>
                     </select>
+
+                    <button class="btn-add-article" id="btn-open-add-modal">
+                        <span>+</span> เพิ่มบทความ
+                    </button>
                 </div>
             </div>
 
@@ -579,13 +795,13 @@
         </main>
     </div>
 
-    <!-- READ ARTICLE MODAL -->
+    <!-- 1. POPUP READ ARTICLE MODAL -->
     <div class="modal-overlay" id="article-modal">
-        <div class="modal-container">
+        <div class="modal-container" id="modal-container-box">
             <button class="modal-close" id="modal-close-btn">&times;</button>
             <div class="modal-scroll-area">
                 <div class="modal-header-grid">
-                    <div class="modal-img-wrap">
+                    <div class="modal-img-wrap" id="modal-media-wrapper">
                         <img src="" alt="" class="modal-img" id="modal-img">
                     </div>
                     
@@ -610,8 +826,104 @@
         </div>
     </div>
 
+    <!-- 2. POPUP ADD / EDIT FORM MODAL -->
+    <div class="modal-overlay" id="form-modal">
+        <div class="form-modal-container">
+            <h3 class="form-title" id="form-modal-title">เพิ่มบทความใหม่</h3>
+            <form id="article-form">
+                <input type="hidden" id="form-article-id">
+                
+                <div class="form-group">
+                    <label>หัวข้อบทความ</label>
+                    <input type="text" class="form-control" id="form-title" required placeholder="ใส่ชื่อบทความ...">
+                </div>
+
+                <div class="form-group">
+                    <label>หมวดหมู่</label>
+                    <select class="form-control" id="form-category">
+                        <option value="main">Lore พื้นฐาน</option>
+                        <option value="history">ประวัติศาสตร์</option>
+                        <option value="regions">ภูมิภาค</option>
+                        <option value="organizations">องค์กร/ฝ่าย</option>
+                        <option value="characters">ตัวละคร</option>
+                        <option value="lyrics">เนื้อเพลงแปลไทย</option>
+                        <option value="other">อื่นๆ</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>รูปภาพปก / ลิงก์ YouTube (กรณีหมวดเนื้อเพลงใส่ลิงก์ YouTube ได้)</label>
+                    <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+                        <input type="file" id="form-image-file" accept="image/*" class="form-control" style="padding: 6px;">
+                        <input type="url" class="form-control" id="form-image" placeholder="หรือวางลิงก์ URL (https://...) / YouTube URL">
+                    </div>
+                    <div id="image-preview-box" style="display: none; align-items: center; gap: 10px; margin-top: 8px; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 8px;">
+                        <img id="image-preview" src="" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
+                        <span id="image-preview-name" style="font-size: 0.8rem; color: var(--text-muted);"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>คำเฉพาะ / คีย์เวิร์ด (คั่นด้วยเครื่องหมายจุลภาค ,)</label>
+                    <input type="text" class="form-control" id="form-tags" placeholder="เช่น Sol3, Lament, Rover, Sentinel">
+                </div>
+
+                <div class="form-group">
+                    <label>เรื่องย่อ (แสดงบนการ์ด)</label>
+                    <textarea class="form-control" id="form-summary" required placeholder="สั้นๆ 2-3 บรรทัด..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>เนื้อหาฉบับเต็ม</label>
+                    <textarea class="form-control" id="form-content" style="min-height: 180px;" required placeholder="รายละเอียดบทความทั้งหมด..."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" id="btn-cancel-form">ยกเลิก</button>
+                    <button type="submit" class="btn-submit" id="btn-save-submit">บันทึกข้อมูล</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. POPUP GITHUB TOKEN AUTH MODAL -->
+    <div class="modal-overlay" id="auth-modal">
+        <div class="form-modal-container auth-modal-container">
+            <h3 class="form-title">🔑 ยืนยันสิทธิ์ GitHub Admin</h3>
+            <form id="auth-form">
+                <div class="form-group">
+                    <label>GitHub Username</label>
+                    <input type="text" class="form-control" id="auth-username" required placeholder="เช่น my-username">
+                </div>
+                <div class="form-group">
+                    <label>Repository Name</label>
+                    <input type="text" class="form-control" id="auth-repo" required placeholder="เช่น my-lore-website">
+                </div>
+                <div class="form-group">
+                    <label>GitHub Personal Access Token (PAT)</label>
+                    <input type="password" class="form-control" id="auth-token" required placeholder="ghp_xxxxxxxxxxxx">
+                    <div class="error-msg" id="auth-error"> token หรือข้อมูล Repo ไม่ถูกต้อง</div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" id="btn-cancel-auth">ยกเลิก</button>
+                    <button type="submit" class="btn-submit">เชื่อมต่อ Admin</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <button class="admin-btn-toggle" id="btn-toggle-admin">
+        <span id="admin-btn-icon">⚙️</span>
+        <span id="admin-btn-text">โหมดแก้ไข (Admin)</span>
+    </button>
+
     <script>
+        let GITHUB_USERNAME = "";
+        let REPO_NAME = "";
+        let GITHUB_TOKEN = "";
         const FILE_PATH = "articles.json";
+
+        let isAdmin = false;
         let articles = [];
         let activeCategory = 'all';
 
@@ -622,14 +934,42 @@
         const sortSelect = document.getElementById('sort-select');
         
         const readModal = document.getElementById('article-modal');
+        const modalContainerBox = document.getElementById('modal-container-box');
+        const modalMediaWrapper = document.getElementById('modal-media-wrapper');
         const modalCloseBtn = document.getElementById('modal-close-btn');
-        const modalImg = document.getElementById('modal-img');
         const modalBadge = document.getElementById('modal-badge');
         const modalTitle = document.getElementById('modal-title');
         const modalCreated = document.getElementById('modal-created');
         const modalUpdated = document.getElementById('modal-updated');
+        const modalTagsBox = document.getElementById('modal-tags-box');
         const modalTagsList = document.getElementById('modal-tags-list');
         const modalText = document.getElementById('modal-text');
+
+        const formModal = document.getElementById('form-modal');
+        const articleForm = document.getElementById('article-form');
+        const formModalTitle = document.getElementById('form-modal-title');
+        const btnOpenAddModal = document.getElementById('btn-open-add-modal');
+        const btnCancelForm = document.getElementById('btn-cancel-form');
+        const btnSaveSubmit = document.getElementById('btn-save-submit');
+
+        const inputId = document.getElementById('form-article-id');
+        const inputTitle = document.getElementById('form-title');
+        const inputCategory = document.getElementById('form-category');
+        const inputImage = document.getElementById('form-image');
+        const inputTags = document.getElementById('form-tags');
+        const inputSummary = document.getElementById('form-summary');
+        const inputContent = document.getElementById('form-content');
+
+        const authModal = document.getElementById('auth-modal');
+        const authForm = document.getElementById('auth-form');
+        const authUsername = document.getElementById('auth-username');
+        const authRepo = document.getElementById('auth-repo');
+        const authToken = document.getElementById('auth-token');
+        const authError = document.getElementById('auth-error');
+        const btnCancelAuth = document.getElementById('btn-cancel-auth');
+        const btnToggleAdmin = document.getElementById('btn-toggle-admin');
+        const adminBtnIcon = document.getElementById('admin-btn-icon');
+        const adminBtnText = document.getElementById('admin-btn-text');
 
         async function loadArticlesFromJSON() {
             try {
@@ -644,6 +984,127 @@
                 articles = [];
             }
             renderCards();
+        }
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        // ฟังก์ชันแปลงลิงก์ YouTube เพื่อดึง Video ID
+        function extractYouTubeId(urlStr) {
+            if (!urlStr) return null;
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = urlStr.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        async function uploadImageToGitHub(file) {
+            if (!isAdmin || !GITHUB_TOKEN) {
+                alert("กรุณาเข้าสู่ระบบ Admin เพื่ออัปโหลดไฟล์รูปภาพ");
+                return null;
+            }
+
+            const fileExt = file.name.split('.').pop();
+            const cleanFileName = `cover_${Date.now()}.${fileExt}`;
+            const targetPath = `image/cover/${cleanFileName}`;
+            const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${targetPath}`;
+
+            try {
+                const base64Content = await fileToBase64(file);
+
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: `Upload image: ${cleanFileName}`,
+                        content: base64Content
+                    })
+                });
+
+                if (response.ok) {
+                    return `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${REPO_NAME}/main/${targetPath}`;
+                } else {
+                    const errData = await response.json();
+                    alert('เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ: ' + (errData.message || ''));
+                    return null;
+                }
+            } catch (error) {
+                console.error("Error uploading image:", error);
+                alert('ไม่สามารถเชื่อมต่อ GitHub เพื่ออัปโหลดรูปภาพได้');
+                return null;
+            }
+        }
+
+        async function saveArticlesToGitHub(updatedArticles) {
+            btnSaveSubmit.disabled = true;
+            btnSaveSubmit.textContent = "กำลัง Commit ลง GitHub...";
+
+            const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`;
+            
+            try {
+                let fileSha = "";
+                const getFile = await fetch(url, {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+                });
+
+                if (getFile.ok) {
+                    const fileData = await getFile.json();
+                    fileSha = fileData.sha;
+                }
+
+                const contentString = JSON.stringify(updatedArticles, null, 2);
+                const encodedContent = btoa(unescape(encodeURIComponent(contentString)));
+
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: "Update articles.json via Web GUI",
+                        content: encodedContent,
+                        sha: fileSha !== "" ? fileSha : undefined
+                    })
+                });
+
+                if (response.ok) {
+                    alert('บันทึกลง GitHub สำเร็จ!');
+                    articles = updatedArticles;
+                    renderCards();
+                    closeFormModal();
+                } else {
+                    const errData = await response.json();
+                    alert('เกิดข้อผิดพลาดจาก GitHub: ' + (errData.message || 'ไม่สามารถบันทึกได้'));
+                }
+            } catch (error) {
+                console.error(error);
+                alert('เกิดข้อผิดพลาดในการเชื่อมต่อ GitHub API');
+            } finally {
+                btnSaveSubmit.disabled = false;
+                btnSaveSubmit.textContent = "บันทึกข้อมูล";
+            }
+        }
+
+        function getCategoryName(categoryKey) {
+            switch(categoryKey) {
+                case 'main': return 'Lore พื้นฐาน';
+                case 'history': return 'ประวัติศาสตร์';
+                case 'regions': return 'ภูมิภาค';
+                case 'organizations': return 'องค์กร/ฝ่าย';
+                case 'characters': return 'ตัวละคร';
+                case 'lyrics': return 'เนื้อเพลงแปลไทย';
+                case 'other': return 'อื่นๆ';
+                default: return 'ทั่วไป';
+            }
         }
 
         function updateCategoryCounts() {
@@ -683,22 +1144,53 @@
             } else {
                 filteredArticles.forEach(article => {
                     const card = document.createElement('article');
-                    card.className = 'card';
+                    const isLyrics = article.category === 'lyrics';
+                    
+                    card.className = `card ${isLyrics ? 'card-lyrics' : ''}`;
 
-                    card.innerHTML = `
-                        <div class="card-image-wrap" onclick="openReadModal(${article.id})">
-                            <span class="card-badge">${article.categoryName}</span>
-                            <img src="${article.image}" alt="${article.title}">
-                        </div>
-                        <div class="card-body" onclick="openReadModal(${article.id})">
-                            <h3 class="card-title">${article.title}</h3>
-                            <p class="card-text">${article.summary}</p>
-                            <div class="card-footer">
-                                <span>อัปเดต: ${article.updated || article.updatedAt || 'ล่าสุด'}</span>
-                                <span class="read-more">อ่านต่อ &rarr;</span>
+                    // ถ้ารูปเป็น ลิงก์ Youtube ให้แปลงดึง Thumbnail อัตโนมัติสำหรับโชว์บนการ์ด
+                    let cardDisplayImg = article.image;
+                    const ytId = extractYouTubeId(article.image);
+                    if (ytId) {
+                        cardDisplayImg = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+                    }
+
+                    if (isLyrics) {
+                        // รูปแบบการ์ดหมวดเนื้อเพลง: สัดส่วน 16:9 + มีเฉพาะชื่อบทความ
+                        card.innerHTML = `
+                            <div class="card-admin-actions">
+                                <button class="btn-card-action" onclick="openEditModal(event, ${article.id})">✏️ แก้ไข</button>
+                                <button class="btn-card-action delete" onclick="deleteArticle(event, ${article.id})">🗑️ ลบ</button>
                             </div>
-                        </div>
-                    `;
+                            <div class="card-image-wrap" onclick="openReadModal(${article.id})">
+                                <span class="card-badge">${article.categoryName}</span>
+                                <img src="${cardDisplayImg}" alt="${article.title}">
+                            </div>
+                            <div class="card-body" onclick="openReadModal(${article.id})">
+                                <h3 class="card-title">${article.title}</h3>
+                            </div>
+                        `;
+                    } else {
+                        // รูปแบบการ์ดหมวดทั่วไป
+                        card.innerHTML = `
+                            <div class="card-admin-actions">
+                                <button class="btn-card-action" onclick="openEditModal(event, ${article.id})">✏️ แก้ไข</button>
+                                <button class="btn-card-action delete" onclick="deleteArticle(event, ${article.id})">🗑️ ลบ</button>
+                            </div>
+                            <div class="card-image-wrap" onclick="openReadModal(${article.id})">
+                                <span class="card-badge">${article.categoryName}</span>
+                                <img src="${cardDisplayImg}" alt="${article.title}">
+                            </div>
+                            <div class="card-body" onclick="openReadModal(${article.id})">
+                                <h3 class="card-title">${article.title}</h3>
+                                <p class="card-text">${article.summary}</p>
+                                <div class="card-footer">
+                                    <span>อัปเดต: ${article.updated || article.updatedAt || 'ล่าสุด'}</span>
+                                    <span class="read-more">อ่านต่อ &rarr;</span>
+                                </div>
+                            </div>
+                        `;
+                    }
                     cardsContainer.appendChild(card);
                 });
             }
@@ -717,26 +1209,108 @@
             });
         });
 
+        btnToggleAdmin.addEventListener('click', () => {
+            if (isAdmin) {
+                isAdmin = false;
+                GITHUB_TOKEN = "";
+                document.body.classList.remove('admin-mode');
+                adminBtnIcon.textContent = '⚙️';
+                adminBtnText.textContent = 'โหมดแก้ไข (Admin)';
+            } else {
+                authUsername.value = GITHUB_USERNAME;
+                authRepo.value = REPO_NAME;
+                authToken.value = '';
+                authError.style.display = 'none';
+                authModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+
+        authForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const tempUser = authUsername.value.trim();
+            const tempRepo = authRepo.value.trim();
+            const tempToken = authToken.value.trim();
+
+            authError.style.display = 'none';
+
+            try {
+                const checkRes = await fetch(`https://api.github.com/repos/${tempUser}/${tempRepo}`, {
+                    headers: { 'Authorization': `token ${tempToken}` }
+                });
+
+                if (checkRes.ok) {
+                    GITHUB_USERNAME = tempUser;
+                    REPO_NAME = tempRepo;
+                    GITHUB_TOKEN = tempToken;
+                    
+                    isAdmin = true;
+                    document.body.classList.add('admin-mode');
+                    adminBtnIcon.textContent = '🔒';
+                    adminBtnText.textContent = 'ออกจากโหมด Admin';
+                    authModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                } else {
+                    authError.style.display = 'block';
+                }
+            } catch (err) {
+                authError.style.display = 'block';
+            }
+        });
+
+        btnCancelAuth.addEventListener('click', () => {
+            authModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
         function openReadModal(articleId) {
             const article = articles.find(a => a.id === articleId);
             if (!article) return;
 
             const nowStr = new Date().toLocaleDateString('th-TH');
+            const isLyrics = article.category === 'lyrics';
 
-            modalImg.src = article.image;
             modalBadge.textContent = article.categoryName;
             modalTitle.textContent = article.title;
             modalCreated.textContent = article.createdAt || article.created || nowStr;
             modalUpdated.textContent = article.updatedAt || article.updated || 'ล่าสุด';
 
-            modalTagsList.innerHTML = '';
-            const tags = article.tags || (article.title.match(/[A-Za-z0-9]+/g) || ['General']);
-            tags.forEach(tag => {
-                const span = document.createElement('span');
-                span.className = 'tag-pill';
-                span.textContent = tag.trim();
-                modalTagsList.appendChild(span);
-            });
+            // จัดการเลย์เอาต์เฉพาะของหมวด "เนื้อเพลงแปลไทย"
+            if (isLyrics) {
+                modalContainerBox.classList.add('lyrics-mode');
+                modalTagsBox.style.display = 'none'; // ตัดคำเฉพาะออก
+
+                // ค้นหา YouTube ID จาก image URL หรือในเนื้อหา
+                let ytId = extractYouTubeId(article.image) || extractYouTubeId(article.content);
+                
+                if (ytId) {
+                    modalMediaWrapper.innerHTML = `
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${ytId}" 
+                        title="YouTube video player" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen style="border-radius: 10px;"></iframe>
+                    `;
+                } else {
+                    // หากไม่มีลิงก์ Youtube ให้ใช้รูปภาพแทน
+                    modalMediaWrapper.innerHTML = `<img src="${article.image}" alt="${article.title}" class="modal-img">`;
+                }
+            } else {
+                modalContainerBox.classList.remove('lyrics-mode');
+                modalTagsBox.style.display = 'flex'; // แสดงคำเฉพาะปกติ
+
+                modalMediaWrapper.innerHTML = `<img src="${article.image}" alt="${article.title}" class="modal-img">`;
+
+                modalTagsList.innerHTML = '';
+                const tags = article.tags || (article.title.match(/[A-Za-z0-9]+/g) || ['General']);
+                tags.forEach(tag => {
+                    const span = document.createElement('span');
+                    span.className = 'tag-pill';
+                    span.textContent = tag.trim();
+                    modalTagsList.appendChild(span);
+                });
+            }
 
             modalText.textContent = article.content;
             readModal.classList.add('active');
@@ -746,29 +1320,182 @@
         function closeReadModal() {
             readModal.classList.remove('active');
             document.body.style.overflow = 'auto';
+            // ล้างสื่อใน Pop-up เพื่อหยุดวิดีโอ YouTube ไม่ให้เล่นค้างในเบื้องหลัง
+            modalMediaWrapper.innerHTML = '';
         }
 
         modalCloseBtn.addEventListener('click', closeReadModal);
 
+        btnOpenAddModal.addEventListener('click', () => {
+            articleForm.reset();
+            inputId.value = '';
+            document.getElementById('image-preview-box').style.display = 'none';
+            formModalTitle.textContent = 'เพิ่มบทความใหม่';
+            formModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        function openEditModal(event, articleId) {
+            event.stopPropagation();
+            const article = articles.find(a => a.id === articleId);
+            if (!article) return;
+
+            inputId.value = article.id;
+            inputTitle.value = article.title;
+            inputCategory.value = article.category;
+            inputImage.value = article.image;
+            inputTags.value = article.tags ? article.tags.join(', ') : '';
+            inputSummary.value = article.summary;
+            inputContent.value = article.content;
+
+            document.getElementById('form-image-file').value = '';
+            document.getElementById('image-preview-box').style.display = 'none';
+
+            formModalTitle.textContent = 'แก้ไขบทความ';
+            formModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeFormModal() {
+            formModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        btnCancelForm.addEventListener('click', closeFormModal);
+
+        document.getElementById('form-image-file').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const previewBox = document.getElementById('image-preview-box');
+            const previewImg = document.getElementById('image-preview');
+            const previewName = document.getElementById('image-preview-name');
+
+            if (file) {
+                previewImg.src = URL.createObjectURL(file);
+                previewName.textContent = file.name;
+                previewBox.style.display = 'flex';
+            } else {
+                previewBox.style.display = 'none';
+            }
+        });
+
+        articleForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const fileInput = document.getElementById('form-image-file');
+            let imagePath = inputImage.value.trim();
+
+            if (fileInput.files.length > 0) {
+                btnSaveSubmit.disabled = true;
+                btnSaveSubmit.textContent = "กำลังอัปโหลดรูปภาพ...";
+
+                const uploadedPath = await uploadImageToGitHub(fileInput.files[0]);
+                if (uploadedPath) {
+                    imagePath = uploadedPath;
+                } else {
+                    btnSaveSubmit.disabled = false;
+                    btnSaveSubmit.textContent = "บันทึกข้อมูล";
+                    return;
+                }
+            }
+
+            if (!imagePath) {
+                alert("กรุณาเลือกไฟล์รูปภาพ หรือกรอก URL รูปภาพ / YouTube");
+                return;
+            }
+
+            const id = inputId.value;
+            const title = inputTitle.value;
+            const category = inputCategory.value;
+            const tags = inputTags.value ? inputTags.value.split(',').map(t => t.trim()).filter(Boolean) : [];
+            const summary = inputSummary.value;
+            const content = inputContent.value;
+            const todayStr = new Date().toLocaleDateString('th-TH');
+
+            let updatedArticles = [...articles];
+
+            if (id) {
+                const articleIndex = updatedArticles.findIndex(a => a.id == id);
+                if (articleIndex !== -1) {
+                    updatedArticles[articleIndex] = {
+                        ...updatedArticles[articleIndex],
+                        title,
+                        category,
+                        categoryName: getCategoryName(category),
+                        image: imagePath,
+                        tags,
+                        summary,
+                        content,
+                        updatedAt: todayStr,
+                        updated: 'แก้ไขเมื่อครู่นี้'
+                    };
+                }
+            } else {
+                const newArticle = {
+                    id: Date.now(),
+                    category,
+                    categoryName: getCategoryName(category),
+                    title,
+                    summary,
+                    content,
+                    image: imagePath,
+                    tags,
+                    createdAt: todayStr,
+                    updatedAt: todayStr,
+                    updated: 'เพิ่งสร้าง'
+                };
+                updatedArticles.unshift(newArticle);
+            }
+
+            saveArticlesToGitHub(updatedArticles);
+        });
+
+        function deleteArticle(event, articleId) {
+            event.stopPropagation();
+            if (confirm('คุณต้องการลบบทความนี้ใช่หรือไม่? การกระทำนี้จะ Commit ลบข้อมูลบน GitHub ทันที')) {
+                const updatedArticles = articles.filter(a => a.id !== articleId);
+                saveArticlesToGitHub(updatedArticles);
+            }
+        }
+
         loadArticlesFromJSON();
+
+        const contentInput = document.getElementById('form-content');
+        if (contentInput) {
+            contentInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    e.preventDefault();
+                    const start = this.selectionStart;
+                    const end = this.selectionEnd;
+                    const indent = "    "; 
+
+                    this.value = this.value.substring(0, start) + indent + this.value.substring(end);
+                    this.selectionStart = this.selectionEnd = start + indent.length;
+                }
+            });
+        }
 
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' || e.key === 'Esc') {
                 if (readModal.classList.contains('active')) {
                     closeReadModal();
                 }
+                if (formModal.classList.contains('active')) {
+                    closeFormModal();
+                }
+                if (authModal.classList.contains('active')) {
+                    authModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
             }
         });
     </script>
-
-    <!-- FOOTER -->
     <footer class="site-footer">
         <div class="footer-content">
             <p class="copyright">
-                &copy; 2026 Ku-Bot Factory. All Rights Reserved.
+                &copy; ©2026 Ku-Bot Factory. All Rights Reserved.
             </p>
             <p class="disclaimer">
-                Wuthering Waves and all associated assets, character designs, logos, and story content are trademarks and copyrights of <strong>Kuro Games</strong>. This site is an unofficial fan-made archive created for educational and community discussion purposes under "Fair Use" guidelines.
+                All associated assets, character designs, logos, and story content are copyrights of Kuro Games. This site is an unofficial fan-made archive created for educational and community discussion purposes under "Fair Use" guidelines.
             </p>
         </div>
     </footer>

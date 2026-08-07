@@ -106,7 +106,6 @@
             gap: 8px;
         }
 
-        /* Dropdown สำหรับมือถือ (ซ่อนไว้ก่อนบนจอคอม) */
         .category-dropdown-mobile {
             display: none;
             width: 100%;
@@ -636,28 +635,31 @@
             display: none;
         }
 
+        /* ปุ่มแอดมินรูปไอคอนปากกาแบบทรงกลม มินิมอล */
         .admin-btn-toggle {
             position: fixed;
             bottom: 20px;
             right: 20px;
+            width: 46px;
+            height: 46px;
             background-color: #11141c;
             border: 1px solid var(--accent-yellow);
             color: var(--accent-yellow);
-            padding: 10px 18px;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            border-radius: 50%;
+            font-size: 1.2rem;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-            transition: all 0.2s;
+            transition: all 0.2s ease;
             z-index: 100;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
         }
 
         .admin-btn-toggle:hover {
             background-color: var(--accent-yellow);
             color: #000;
+            transform: scale(1.08);
         }
 
         .admin-mode .admin-btn-toggle {
@@ -670,7 +672,6 @@
             color: #fff;
         }
 
-        /* Responsive UI สำหรับหน้าจอมือถือ (≤ 768px) */
         @media (max-width: 768px) {
             .container {
                 grid-template-columns: 1fr;
@@ -685,7 +686,6 @@
                 margin-bottom: 10px;
             }
 
-            /* สลับแสดงผลจาก List เป็น Dropdown บนมือถือ */
             .category-list {
                 display: none;
             }
@@ -693,7 +693,6 @@
                 display: block;
             }
 
-            /* ปรับ Tile ให้เล็กลง และจัดเรียงเป็น Grid 2 คอลัมน์บนมือถือ */
             .cards-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
@@ -796,7 +795,6 @@
         <aside class="sidebar">
             <div class="sidebar-title">🌐 หมวดหมู่เนื้อหา</div>
             
-            <!-- เมนูแบบเดิมสำหรับ Desktop -->
             <ul class="category-list">
                 <li class="category-item active" data-category="all">
                     <span>ทั้งหมด</span>
@@ -832,7 +830,6 @@
                 </li>
             </ul>
 
-            <!-- Dropdown เมนูสำหรับ Mobile -->
             <select class="category-dropdown-mobile" id="category-dropdown-mobile">
                 <option value="all">ทั้งหมด (<span id="opt-count-all">0</span>)</option>
                 <option value="main">Lore พื้นฐาน</option>
@@ -986,9 +983,8 @@
         </div>
     </div>
 
-    <button class="admin-btn-toggle" id="btn-toggle-admin">
-        <span id="admin-btn-icon">⚙️</span>
-        <span id="admin-btn-text">โหมดแก้ไข (Admin)</span>
+    <button class="admin-btn-toggle" id="btn-toggle-admin" title="โหมดแก้ไข (Admin)">
+        <span id="admin-btn-icon">✏️</span>
     </button>
 
     <script>
@@ -1044,7 +1040,6 @@
         const btnCancelAuth = document.getElementById('btn-cancel-auth');
         const btnToggleAdmin = document.getElementById('btn-toggle-admin');
         const adminBtnIcon = document.getElementById('admin-btn-icon');
-        const adminBtnText = document.getElementById('admin-btn-text');
 
         async function loadArticlesFromJSON() {
             try {
@@ -1191,7 +1186,6 @@
             const countLyrics = articles.filter(a => a.category === 'lyrics').length;
             const countOther = articles.filter(a => a.category === 'other').length;
 
-            // อัปเดตตัวเลขใน Desktop Badge
             document.getElementById('count-all').textContent = countAll;
             document.getElementById('count-main').textContent = countMain;
             document.getElementById('count-history').textContent = countHistory;
@@ -1201,7 +1195,6 @@
             document.getElementById('count-lyrics').textContent = countLyrics;
             document.getElementById('count-other').textContent = countOther;
 
-            // อัปเดตตัวเลขใน Mobile Dropdown
             categoryDropdownMobile.options[0].text = `ทั้งหมด (${countAll})`;
             categoryDropdownMobile.options[1].text = `Lore พื้นฐาน (${countMain})`;
             categoryDropdownMobile.options[2].text = `ประวัติศาสตร์ (${countHistory})`;
@@ -1289,7 +1282,6 @@
             updateCategoryCounts();
         }
 
-        // จัดการเปลี่ยนหมวดหมู่บน Desktop
         categoryItems.forEach(item => {
             item.addEventListener('click', () => {
                 categoryItems.forEach(i => i.classList.remove('active'));
@@ -1302,11 +1294,9 @@
             });
         });
 
-        // จัดการเปลี่ยนหมวดหมู่บน Mobile (Dropdown)
         categoryDropdownMobile.addEventListener('change', (e) => {
             activeCategory = e.target.value;
             
-            // ซิงค์ไฮไลต์กับ Desktop Sidebar ด้วย
             categoryItems.forEach(item => {
                 if (item.getAttribute('data-category') === activeCategory) {
                     item.classList.add('active');
@@ -1324,8 +1314,8 @@
                 isAdmin = false;
                 GITHUB_TOKEN = "";
                 document.body.classList.remove('admin-mode');
-                adminBtnIcon.textContent = '⚙️';
-                adminBtnText.textContent = 'โหมดแก้ไข (Admin)';
+                adminBtnIcon.textContent = '✏️';
+                btnToggleAdmin.title = "โหมดแก้ไข (Admin)";
             } else {
                 authUsername.value = GITHUB_USERNAME;
                 authRepo.value = REPO_NAME;
@@ -1358,7 +1348,7 @@
                     isAdmin = true;
                     document.body.classList.add('admin-mode');
                     adminBtnIcon.textContent = '🔒';
-                    adminBtnText.textContent = 'ออกจากโหมด Admin';
+                    btnToggleAdmin.title = "ออกจากโหมด Admin";
                     authModal.classList.remove('active');
                     document.body.style.overflow = 'auto';
                 } else {

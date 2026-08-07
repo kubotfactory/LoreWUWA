@@ -10,6 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
+        @font-face {
+    font-family: 'Lagusans';
+    src: url('https://db.onlinewebfonts.com/t/01a4e2ef30a6e03fb8c65d64e9a8d9b1.woff2') format('woff2'),
+         url('https://db.onlinewebfonts.com/t/01a4e2ef30a6e03fb8c65d64e9a8d9b1.woff') format('woff'),
+         url('https://db.onlinewebfonts.com/t/01a4e2ef30a6e03fb8c65d64e9a8d9b1.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
         :root {
             --bg-dark: #0b0e14;
             --card-bg: #151922;
@@ -60,6 +68,7 @@
         }
 
         .hero-title {
+            font-family: 'Lagusans', 'Kanit', sans-serif; /* สั่งใช้ Lagusans แค่ตรงนี้ */
             font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 700;
             color: #ffffff;

@@ -159,6 +159,23 @@
             gap: 15px;
         }
 
+        /* STYLING FOR SORT SELECT */
+        .sort-select {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid #242c3d;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sort-select:hover, .sort-select:focus {
+            border-color: var(--accent-yellow);
+        }
+
         .btn-add-article {
             background: var(--accent-yellow);
             color: #000;
@@ -640,6 +657,15 @@
             .modal-scroll-area {
                 padding: 20px;
             }
+            .content-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .header-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
         }
     </style>
 </head>
@@ -696,6 +722,14 @@
                     <span class="sub-tag">คุย Lore ไม่คุย Leak</span>
                 </div>
                 <div class="header-controls">
+                    <!-- 📍 ตัวเลือกเรียงลำดับถูกเพิ่มลงตรงนี้ (ตำแหน่งกรอบแดง) -->
+                    <select id="sort-select" class="sort-select" onchange="renderCards()">
+                        <option value="name-asc">เรียงตามชื่อ (ก - ฮ / A - Z)</option>
+                        <option value="name-desc">เรียงตามชื่อ (ฮ - ก / Z - A)</option>
+                        <option value="date-new" selected>สร้างล่าสุด</option>
+                        <option value="date-old">สร้างเก่าสุด</option>
+                    </select>
+
                     <button class="btn-add-article" id="btn-open-add-modal">
                         <span>+</span> เพิ่มบทความ
                     </button>
@@ -835,6 +869,7 @@
         const cardsContainer = document.getElementById('cards-container');
         const categoryItems = document.querySelectorAll('.category-item');
         const currentCategoryName = document.getElementById('current-category-name');
+        const sortSelect = document.getElementById('sort-select');
         
         const readModal = document.getElementById('article-modal');
         const modalCloseBtn = document.getElementById('modal-close-btn');
@@ -965,10 +1000,28 @@
         function renderCards() {
             cardsContainer.innerHTML = '';
             
-            const filteredArticles = activeCategory === 'all' 
-                ? articles 
+            // 1. กรองตามหมวดหมู่
+            let filteredArticles = activeCategory === 'all' 
+                ? [...articles] 
                 : articles.filter(article => article.category === activeCategory);
 
+            // 2. จัดเรียงข้อมูลตามค่าที่เลือกใน Dropdown
+            const sortType = sortSelect ? sortSelect.value : 'date-new';
+            
+            filteredArticles.sort((a, b) => {
+                if (sortType === 'name-asc') {
+                    return a.title.localeCompare(b.title, 'th', { sensitivity: 'base' });
+                } else if (sortType === 'name-desc') {
+                    return b.title.localeCompare(a.title, 'th', { sensitivity: 'base' });
+                } else if (sortType === 'date-old') {
+                    return (a.id || 0) - (b.id || 0);
+                } else {
+                    // date-new (Default)
+                    return (b.id || 0) - (a.id || 0);
+                }
+            });
+
+            // 3. แสดงผลการ์ด
             if (filteredArticles.length === 0) {
                 cardsContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px 0;">ยังไม่มีบทความในหมวดหมู่นี้</div>`;
             } else {
@@ -1191,24 +1244,24 @@
                 saveArticlesToGitHub(updatedArticles);
             }
         }
+
         loadArticlesFromJSON();
+
         const contentInput = document.getElementById('form-content');
+        if (contentInput) {
+            contentInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    e.preventDefault();
+                    const start = this.selectionStart;
+                    const end = this.selectionEnd;
 
-if (contentInput) {
-    contentInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Tab') {
-            e.preventDefault();
-            const start = this.selectionStart;
-            const end = this.selectionEnd;
+                    const indent = "    "; 
 
-            // แทรกสเปซ 4 ช่อง (หรือจะใช้ '\t' ก็ได้เมื่อมี white-space: pre-wrap)
-            const indent = "    "; 
-
-            this.value = this.value.substring(0, start) + indent + this.value.substring(end);
-            this.selectionStart = this.selectionEnd = start + indent.length;
+                    this.value = this.value.substring(0, start) + indent + this.value.substring(end);
+                    this.selectionStart = this.selectionEnd = start + indent.length;
+                }
+            });
         }
-    });
-}
     </script>
 </body>
 </html>

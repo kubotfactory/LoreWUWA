@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KU-LORE ARCHIVE</title>
+    <title>TETHYS'S ARCHIVE BY Ku-Bot Factory</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -13,10 +13,10 @@
             --bg-dark: #0b0e14;
             --card-bg: #151922;
             --sidebar-bg: #11141c;
-            --accent-cyan: #00f2fe;
+            --accent-yellow: #fbcc27;
             --text-main: #e0e6ed;
             --text-muted: #8a99ad;
-            --badge-bg: #00acc1;
+            --badge-bg: #fbcc27;
             --danger-red: #ff4d4d;
         }
 
@@ -50,7 +50,7 @@
         }
 
         .hero-subtitle {
-            color: var(--accent-cyan);
+            color: var(--accent-yellow);
             font-size: clamp(0.75rem, 1.5vw, 0.9rem);
             letter-spacing: 3px;
             font-weight: 600;
@@ -62,7 +62,7 @@
             font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 700;
             color: #ffffff;
-            text-shadow: 0 0 15px rgba(0, 242, 254, 0.6);
+            text-shadow: 0 0 15px rgba(251, 204, 39, 0.6);
             letter-spacing: 2px;
         }
 
@@ -84,7 +84,7 @@
         }
 
         .sidebar-title {
-            color: var(--accent-cyan);
+            color: var(--accent-yellow);
             font-size: 0.95rem;
             margin-bottom: 20px;
             display: flex;
@@ -118,9 +118,9 @@
         }
 
         .category-item.active {
-            border: 1px solid var(--accent-cyan);
-            color: var(--accent-cyan);
-            background-color: rgba(0, 242, 254, 0.05);
+            border: 1px solid var(--accent-yellow);
+            color: var(--accent-yellow);
+            background-color: rgba(251, 204, 39, 0.08);
         }
 
         .badge-count {
@@ -132,7 +132,7 @@
         }
 
         .category-item.active .badge-count {
-            background-color: var(--accent-cyan);
+            background-color: var(--accent-yellow);
             color: #000;
             font-weight: bold;
         }
@@ -142,7 +142,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
-            border-left: 4px solid var(--accent-cyan);
+            border-left: 4px solid var(--accent-yellow);
             padding-left: 12px;
         }
 
@@ -153,7 +153,7 @@
         }
 
         .btn-add-article {
-            background: var(--accent-cyan);
+            background: var(--accent-yellow);
             color: #000;
             border: none;
             padding: 8px 16px;
@@ -171,7 +171,7 @@
         }
 
         .btn-add-article:hover {
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+            box-shadow: 0 0 15px rgba(251, 204, 39, 0.5);
             transform: translateY(-2px);
         }
 
@@ -194,7 +194,7 @@
 
         .card:hover {
             transform: translateY(-4px);
-            border-color: var(--accent-cyan);
+            border-color: var(--accent-yellow);
         }
 
         /* 1:1 Aspect Ratio Tile Image */
@@ -256,7 +256,7 @@
         }
 
         .btn-card-action:hover {
-            background: var(--accent-cyan);
+            background: var(--accent-yellow);
             color: #000;
         }
 
@@ -300,11 +300,11 @@
         }
 
         .read-more {
-            color: var(--accent-cyan);
+            color: var(--accent-yellow);
             font-weight: 600;
         }
 
-        /* POPUP MODAL STYLES (MATCHING CUSTOM LAYOUT) */
+        /* POPUP MODAL STYLES */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -330,7 +330,7 @@
 
         .modal-container {
             background-color: var(--card-bg);
-            border: 1px solid var(--accent-cyan);
+            border: 1px solid var(--accent-yellow);
             border-radius: 16px;
             width: 95%;
             max-width: 1000px;
@@ -338,7 +338,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            box-shadow: 0 0 35px rgba(0, 242, 254, 0.25);
+            box-shadow: 0 0 35px rgba(251, 204, 39, 0.25);
             position: relative;
             transform: scale(0.95);
             transition: transform 0.25s ease-in-out;
@@ -370,9 +370,9 @@
         }
 
         .modal-close:hover {
-            background-color: var(--accent-cyan);
+            background-color: var(--accent-yellow);
             color: #000;
-            border-color: var(--accent-cyan);
+            border-color: var(--accent-yellow);
             transform: rotate(90deg);
         }
 
@@ -384,7 +384,6 @@
             gap: 24px;
         }
 
-        /* Top Layout (Red on Left, Blue/Cyan/Yellow/Orange/Green on Right) */
         .modal-header-grid {
             display: grid;
             grid-template-columns: 280px 1fr;
@@ -392,7 +391,6 @@
             align-items: start;
         }
 
-        /* Red Zone: 1:1 Image */
         .modal-img-wrap {
             width: 100%;
             aspect-ratio: 1 / 1;
@@ -413,7 +411,6 @@
             gap: 12px;
         }
 
-        /* Blue Zone: Article Title */
         .modal-title {
             font-size: clamp(1.3rem, 2.5vw, 1.8rem);
             color: #fff;
@@ -421,7 +418,6 @@
             font-weight: 700;
         }
 
-        /* Cyan Zone: Category Badge */
         .modal-badge {
             display: inline-block;
             align-self: flex-start;
@@ -433,7 +429,6 @@
             border-radius: 4px;
         }
 
-        /* Yellow & Orange Zones: Dates */
         .modal-dates-row {
             display: flex;
             gap: 15px;
@@ -450,7 +445,6 @@
             font-weight: 500;
         }
 
-        /* Green Zone: Tags / Specific Keywords Container */
         .modal-tags-box {
             background: rgba(255, 255, 255, 0.03);
             border: 1px dashed rgba(255, 255, 255, 0.15);
@@ -464,7 +458,7 @@
 
         .modal-tags-label {
             font-size: 0.8rem;
-            color: var(--accent-cyan);
+            color: var(--accent-yellow);
             font-weight: 600;
             margin-right: 4px;
         }
@@ -478,7 +472,6 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* White Zone: Main Body Content */
         .modal-body-content {
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 20px;
@@ -492,7 +485,7 @@
         /* FORM MODAL & AUTH */
         .form-modal-container {
             background-color: var(--card-bg);
-            border: 1px solid var(--accent-cyan);
+            border: 1px solid var(--accent-yellow);
             border-radius: 16px;
             width: 90%;
             max-width: 650px;
@@ -500,7 +493,7 @@
             overflow-y: auto;
             padding: 30px;
             position: relative;
-            box-shadow: 0 0 30px rgba(0, 242, 254, 0.2);
+            box-shadow: 0 0 30px rgba(251, 204, 39, 0.2);
             transform: scale(0.95);
             transition: transform 0.25s ease-in-out;
         }
@@ -511,7 +504,7 @@
 
         .form-title {
             font-size: 1.4rem;
-            color: var(--accent-cyan);
+            color: var(--accent-yellow);
             margin-bottom: 20px;
         }
 
@@ -539,7 +532,7 @@
         }
 
         .form-control:focus {
-            border-color: var(--accent-cyan);
+            border-color: var(--accent-yellow);
         }
 
         textarea.form-control {
@@ -555,7 +548,7 @@
         }
 
         .btn-submit {
-            background: var(--accent-cyan);
+            background: var(--accent-yellow);
             color: #000;
             border: none;
             padding: 10px 20px;
@@ -589,8 +582,8 @@
             bottom: 20px;
             right: 20px;
             background-color: #11141c;
-            border: 1px solid var(--accent-cyan);
-            color: var(--accent-cyan);
+            border: 1px solid var(--accent-yellow);
+            color: var(--accent-yellow);
             padding: 10px 18px;
             border-radius: 20px;
             font-size: 0.85rem;
@@ -604,7 +597,7 @@
         }
 
         .admin-btn-toggle:hover {
-            background-color: var(--accent-cyan);
+            background-color: var(--accent-yellow);
             color: #000;
         }
 
@@ -639,8 +632,8 @@
 <body>
 
     <header class="hero">
-        <div class="hero-subtitle">WUTHERING WAVES • LORE ARCHIVE HUB</div>
-        <h1 class="hero-title">KU-LORE ARCHIVE</h1>
+        <div class="hero-subtitle">WUTHERING WAVES • LORE ARCHIVE</div>
+        <h1 class="hero-title">TETHYS'S ARCHIVE BY Ku-Bot Factory</h1>
     </header>
 
     <div class="container">
@@ -652,16 +645,32 @@
                     <span class="badge-count" id="count-all">0</span>
                 </li>
                 <li class="category-item" data-category="main">
-                    <span>เนื้อเรื่องหลัก</span>
+                    <span>Lore พื้นฐาน</span>
                     <span class="badge-count" id="count-main">0</span>
                 </li>
+                <li class="category-item" data-category="history">
+                    <span>ประวัติศาสตร์</span>
+                    <span class="badge-count" id="count-history">0</span>
+                </li>
+                <li class="category-item" data-category="regions">
+                    <span>ภูมิภาค</span>
+                    <span class="badge-count" id="count-regions">0</span>
+                </li>
+                <li class="category-item" data-category="organizations">
+                    <span>องค์กร/ฝ่าย</span>
+                    <span class="badge-count" id="count-organizations">0</span>
+                </li>
                 <li class="category-item" data-category="characters">
-                    <span>ตัวละคร & องค์กร</span>
+                    <span>ตัวละคร</span>
                     <span class="badge-count" id="count-characters">0</span>
                 </li>
-                <li class="category-item" data-category="history">
-                    <span>ประวัติศาสตร์ Sol3</span>
-                    <span class="badge-count" id="count-history">0</span>
+                <li class="category-item" data-category="lyrics">
+                    <span>เนื้อเพลงแปลไทย</span>
+                    <span class="badge-count" id="count-lyrics">0</span>
+                </li>
+                <li class="category-item" data-category="other">
+                    <span>อื่นๆ</span>
+                    <span class="badge-count" id="count-other">0</span>
                 </li>
             </ul>
         </aside>
@@ -683,32 +692,25 @@
         </main>
     </div>
 
-    <!-- 1. POPUP READ ARTICLE MODAL (MATCHING IMAGE LAYOUT) -->
+    <!-- 1. POPUP READ ARTICLE MODAL -->
     <div class="modal-overlay" id="article-modal">
         <div class="modal-container">
             <button class="modal-close" id="modal-close-btn">&times;</button>
             <div class="modal-scroll-area">
-                <!-- Top Layout Grid -->
                 <div class="modal-header-grid">
-                    <!-- Red: Image 1:1 -->
                     <div class="modal-img-wrap">
                         <img src="" alt="" class="modal-img" id="modal-img">
                     </div>
                     
                     <div class="modal-meta-col">
-                        <!-- Blue: Title -->
                         <h2 class="modal-title" id="modal-title"></h2>
-                        
-                        <!-- Cyan: Category -->
                         <span class="modal-badge" id="modal-badge"></span>
                         
-                        <!-- Yellow & Orange: Dates -->
                         <div class="modal-dates-row">
                             <div class="date-item">สร้าง: <span id="modal-created">-</span></div>
                             <div class="date-item">| ล่าสุด: <span id="modal-updated">-</span></div>
                         </div>
 
-                        <!-- Green: Specific Keywords / Tags Box -->
                         <div class="modal-tags-box" id="modal-tags-box">
                             <span class="modal-tags-label">🏷️ คำเฉพาะ:</span>
                             <div id="modal-tags-list" style="display: flex; gap: 6px; flex-wrap: wrap;"></div>
@@ -716,7 +718,6 @@
                     </div>
                 </div>
 
-                <!-- White: Main Body Content -->
                 <div class="modal-body-content" id="modal-text"></div>
             </div>
         </div>
@@ -737,9 +738,13 @@
                 <div class="form-group">
                     <label>หมวดหมู่</label>
                     <select class="form-control" id="form-category">
-                        <option value="main">เนื้อเรื่องหลัก</option>
-                        <option value="characters">ตัวละคร & องค์กร</option>
-                        <option value="history">ประวัติศาสตร์ Sol3</option>
+                        <option value="main">Lore พื้นฐาน</option>
+                        <option value="history">ประวัติศาสตร์</option>
+                        <option value="regions">ภูมิภาค</option>
+                        <option value="organizations">องค์กร/ฝ่าย</option>
+                        <option value="characters">ตัวละคร</option>
+                        <option value="lyrics">เนื้อเพลงแปลไทย</option>
+                        <option value="other">อื่นๆ</option>
                     </select>
                 </div>
 
@@ -921,9 +926,13 @@
 
         function getCategoryName(categoryKey) {
             switch(categoryKey) {
-                case 'main': return 'เนื้อเรื่องหลัก';
-                case 'characters': return 'ตัวละคร & องค์กร';
-                case 'history': return 'ประวัติศาสตร์ Sol3';
+                case 'main': return 'Lore พื้นฐาน';
+                case 'history': return 'ประวัติศาสตร์';
+                case 'regions': return 'ภูมิภาค';
+                case 'organizations': return 'องค์กร/ฝ่าย';
+                case 'characters': return 'ตัวละคร';
+                case 'lyrics': return 'เนื้อเพลงแปลไทย';
+                case 'other': return 'อื่นๆ';
                 default: return 'ทั่วไป';
             }
         }
@@ -931,8 +940,12 @@
         function updateCategoryCounts() {
             document.getElementById('count-all').textContent = articles.length;
             document.getElementById('count-main').textContent = articles.filter(a => a.category === 'main').length;
-            document.getElementById('count-characters').textContent = articles.filter(a => a.category === 'characters').length;
             document.getElementById('count-history').textContent = articles.filter(a => a.category === 'history').length;
+            document.getElementById('count-regions').textContent = articles.filter(a => a.category === 'regions').length;
+            document.getElementById('count-organizations').textContent = articles.filter(a => a.category === 'organizations').length;
+            document.getElementById('count-characters').textContent = articles.filter(a => a.category === 'characters').length;
+            document.getElementById('count-lyrics').textContent = articles.filter(a => a.category === 'lyrics').length;
+            document.getElementById('count-other').textContent = articles.filter(a => a.category === 'other').length;
         }
 
         function renderCards() {

@@ -1262,6 +1262,22 @@
                 }
             });
         }
+        // ปิด Popup ทุกตัวเมื่อกดปุ่ม ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' || e.key === 'Esc') {
+        // ตรวจสอบว่ามี Modal ตัวไหนเปิดอยู่บ้าง แล้วปิดทันที
+            if (readModal.classList.contains('active')) {
+            closeReadModal();
+        }
+            if (formModal.classList.contains('active')) {
+            closeFormModal();
+        }
+            if (authModal.classList.contains('active')) {
+            authModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    }
+});
     </script>
 </body>
 </html>

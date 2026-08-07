@@ -382,7 +382,11 @@
             border-color: var(--accent-yellow);
             transform: rotate(90deg);
         }
-
+        .modal-body-content p {
+            white-space: pre-wrap;
+            margin-bottom: 1.2rem;
+            line-height: 1.8;
+        }
         .modal-scroll-area {
             overflow-y: auto;
             padding: 30px;
@@ -1184,26 +1188,20 @@
                 saveArticlesToGitHub(updatedArticles);
             }
         }
-
         loadArticlesFromJSON();
-        // ดักจับการกดปุ่ม Tab ในช่องกรอกเนื้อหาบทความ
         const contentInput = document.getElementById('form-content');
 
-            if (contentInput) {
-                contentInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Tab') {
-                e.preventDefault(); // ป้องกันไม่ให้กด Tab แล้วโฟกัสเด้งไปช่องอื่น
-
+if (contentInput) {
+    contentInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Tab') {
+            e.preventDefault();
             const start = this.selectionStart;
             const end = this.selectionEnd;
 
-            // กำหนดให้แทรกช่องว่าง 4 สเปซ (หรือเปลี่ยนเป็น '\t' ก็ได้)
+            // แทรกสเปซ 4 ช่อง (หรือจะใช้ '\t' ก็ได้เมื่อมี white-space: pre-wrap)
             const indent = "    "; 
 
-            // แทรกช่องว่างตรงตำแหน่งที่เคอร์เซอร์อยู่
             this.value = this.value.substring(0, start) + indent + this.value.substring(end);
-
-            // เลื่อนเคอร์เซอร์ไปไว้อยู่หลังช่องว่างที่แทรก
             this.selectionStart = this.selectionEnd = start + indent.length;
         }
     });

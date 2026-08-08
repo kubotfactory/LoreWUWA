@@ -550,7 +550,6 @@
             font-size: 1rem;
             line-height: 1.8;
             font-weight: 300;
-            white-space: pre-wrap;
         }
 
         .modal-body-content p {
@@ -871,6 +870,10 @@
                     <span>ทั้งหมด</span>
                     <span class="badge-count" id="count-all">0</span>
                 </li>
+                <li class="category-item" data-category="story">
+                    <span>เนื้อเรื่องหลัก</span>
+                    <span class="badge-count" id="count-story">0</span>
+                </li>
                 <li class="category-item" data-category="main">
                     <span>Lore พื้นฐาน</span>
                     <span class="badge-count" id="count-main">0</span>
@@ -903,6 +906,7 @@
 
             <select class="category-dropdown-mobile" id="category-dropdown-mobile">
                 <option value="all">ทั้งหมด</option>
+                <option value="story">เนื้อเรื่องหลัก</option>
                 <option value="main">Lore พื้นฐาน</option>
                 <option value="history">ประวัติศาสตร์</option>
                 <option value="regions">ภูมิภาค</option>
@@ -986,6 +990,7 @@
                 <div class="form-group">
                     <label>หมวดหมู่</label>
                     <select class="form-control" id="form-category">
+                        <option value="story">เนื้อเรื่องหลัก</option>
                         <option value="main">Lore พื้นฐาน</option>
                         <option value="history">ประวัติศาสตร์</option>
                         <option value="regions">ภูมิภาค</option>
@@ -1239,6 +1244,7 @@
 
         function getCategoryName(categoryKey) {
             switch(categoryKey) {
+                case 'story': return 'เนื้อเรื่องหลัก';
                 case 'main': return 'Lore พื้นฐาน';
                 case 'history': return 'ประวัติศาสตร์';
                 case 'regions': return 'ภูมิภาค';
@@ -1252,6 +1258,7 @@
 
         function updateCategoryCounts() {
             const countAll = articles.filter(a => a.category !== 'lyrics').length;
+            const countStory = articles.filter(a => a.category === 'story').length;
             const countMain = articles.filter(a => a.category === 'main').length;
             const countHistory = articles.filter(a => a.category === 'history').length;
             const countRegions = articles.filter(a => a.category === 'regions').length;
@@ -1261,6 +1268,7 @@
             const countOther = articles.filter(a => a.category === 'other').length;
 
             document.getElementById('count-all').textContent = countAll;
+            document.getElementById('count-story').textContent = countStory;
             document.getElementById('count-main').textContent = countMain;
             document.getElementById('count-history').textContent = countHistory;
             document.getElementById('count-regions').textContent = countRegions;
@@ -1270,13 +1278,14 @@
             document.getElementById('count-other').textContent = countOther;
 
             categoryDropdownMobile.options[0].text = `ทั้งหมด (${countAll})`;
-            categoryDropdownMobile.options[1].text = `Lore พื้นฐาน (${countMain})`;
-            categoryDropdownMobile.options[2].text = `ประวัติศาสตร์ (${countHistory})`;
-            categoryDropdownMobile.options[3].text = `ภูมิภาค (${countRegions})`;
-            categoryDropdownMobile.options[4].text = `องค์กร/ฝ่าย (${countOrgs})`;
-            categoryDropdownMobile.options[5].text = `ตัวละคร (${countChars})`;
-            categoryDropdownMobile.options[6].text = `เนื้อเพลงแปลไทย (${countLyrics})`;
-            categoryDropdownMobile.options[7].text = `อื่นๆ (${countOther})`;
+            categoryDropdownMobile.options[1].text = `เนื้อเรื่องหลัก (${countStory})`;
+            categoryDropdownMobile.options[2].text = `Lore พื้นฐาน (${countMain})`;
+            categoryDropdownMobile.options[3].text = `ประวัติศาสตร์ (${countHistory})`;
+            categoryDropdownMobile.options[4].text = `ภูมิภาค (${countRegions})`;
+            categoryDropdownMobile.options[5].text = `องค์กร/ฝ่าย (${countOrgs})`;
+            categoryDropdownMobile.options[6].text = `ตัวละคร (${countChars})`;
+            categoryDropdownMobile.options[7].text = `เนื้อเพลงแปลไทย (${countLyrics})`;
+            categoryDropdownMobile.options[8].text = `อื่นๆ (${countOther})`;
         }
 
         function renderCards() {
@@ -1496,7 +1505,17 @@
                 });
             }
 
-            modalText.textContent = article.content;
+            if (article.content) {
+                const paragraphs = article.content
+                    .trim()
+                    .split(/\n\s*\n/)
+                    .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
+                    .join('');
+                modalText.innerHTML = paragraphs;
+            } else {
+                modalText.innerHTML = '';
+            }
+
             readModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }

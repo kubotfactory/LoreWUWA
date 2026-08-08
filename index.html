@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <!-- Primary Meta Tags -->
-    <title>Tethys's Archive BY Ku-Bot Factory</title>
     <meta name="title" content="Tethys's Archive BY Ku-Bot Factory">
     <meta name="description" content="รวมข้อมูล Lore กาว และเนื้อเรื่อง Wuthering Waves">
 
@@ -654,7 +653,6 @@
             display: none;
         }
 
-        /* ปุ่มแอดมินรูปไอคอนปากกาแบบทรงกลม มินิมอล */
         .admin-btn-toggle {
             position: fixed;
             bottom: 20px;
@@ -763,63 +761,61 @@
                 justify-content: space-between;
             }
         }
-			.search-box {
-    flex-grow: 1;
-    max-width: 420px;
-    margin: 0 20px;
-    position: relative;
-}
 
-.search-box input {
-    width: 100%;
-    background-color: rgba(21, 25, 34, 0.7);
-    border: 1px solid rgba(251, 204, 39, 0.2);
-    color: var(--text-main);
-    padding: 10px 16px 10px 42px; /* เว้นที่ด้านซ้ายสำหรับไอคอน */
-    border-radius: 8px;
-    font-size: 0.88rem;
-    outline: none;
-    backdrop-filter: blur(4px);
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
-}
+        .search-box {
+            flex-grow: 1;
+            max-width: 420px;
+            margin: 0 20px;
+            position: relative;
+        }
 
-/* เปลี่ยนสี Placeholder ให้เนียนไปกับโทนเว็บ */
-.search-box input::placeholder {
-    color: #526071;
-    font-size: 0.85rem;
-}
+        .search-box input {
+            width: 100%;
+            background-color: rgba(21, 25, 34, 0.7);
+            border: 1px solid rgba(251, 204, 39, 0.2);
+            color: var(--text-main);
+            padding: 10px 16px 10px 42px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            outline: none;
+            backdrop-filter: blur(4px);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
 
-/* Hover Effect */
-.search-box input:hover {
-    border-color: rgba(251, 204, 39, 0.5);
-    background-color: var(--card-bg);
-}
+        .search-box input::placeholder {
+            color: #526071;
+            font-size: 0.85rem;
+        }
 
-/* Focus Effect ตอนคลิกพิมพ์ */
-.search-box input:focus {
-    border-color: var(--accent-yellow);
-    background-color: var(--card-bg);
-    box-shadow: 0 0 15px rgba(251, 204, 39, 0.25), 
-                inset 0 1px 2px rgba(0, 0, 0, 0.5);
-}
+        .search-box input:hover {
+            border-color: rgba(251, 204, 39, 0.5);
+            background-color: var(--card-bg);
+        }
 
-/* ไอคอนแว่นขยายแบบ CSS Pure */
-.search-box::before {
-    content: "🔍";
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.85rem;
-    opacity: 0.5;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
-}
+        .search-box input:focus {
+            border-color: var(--accent-yellow);
+            background-color: var(--card-bg);
+            box-shadow: 0 0 15px rgba(251, 204, 39, 0.25), 
+                        inset 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
 
-.search-box:focus-within::before {
-    opacity: 1;
-}
+        .search-box::before {
+            content: "🔍";
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.85rem;
+            opacity: 0.5;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .search-box:focus-within::before {
+            opacity: 1;
+        }
+
         .site-footer {
             background-color: #0b0e14;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -906,7 +902,7 @@
             </ul>
 
             <select class="category-dropdown-mobile" id="category-dropdown-mobile">
-                <option value="all">ทั้งหมด (<span id="opt-count-all">0</span>)</option>
+                <option value="all">ทั้งหมด</option>
                 <option value="main">Lore พื้นฐาน</option>
                 <option value="history">ประวัติศาสตร์</option>
                 <option value="regions">ภูมิภาค</option>
@@ -923,9 +919,9 @@
                     <h2 class="content-title" id="current-category-name">ทั้งหมด</h2>
                     <span class="sub-tag">คุย Lore ไม่คุย Leak</span>
                 </div>
-				<div class="search-box">
-					<input type="text" id="search-input" placeholder="ค้นหาชื่อบทความ, คีย์เวิร์ด, หรือแท็ก..." oninput="renderCards()">
-					</div>
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="ค้นหาชื่อบทความ, คีย์เวิร์ด, หรือแท็ก..." oninput="renderCards()">
+                </div>
                 <div class="header-controls">
                     <select id="sort-select" class="sort-select" onchange="renderCards()">
                         <option value="name-asc">เรียงตามชื่อ (ก - ฮ / A - Z)</option>
@@ -1286,12 +1282,24 @@
         function renderCards() {
             cardsContainer.innerHTML = '';
             
-            let filteredArticles = activeCategory === 'all' 
-                ? articles.filter(article => article.category !== 'lyrics') 
-                : articles.filter(article => article.category === activeCategory);
+            const searchKeyword = document.getElementById('search-input')?.value.toLowerCase().trim() || '';
 
+            // 1. กรองตามหมวดหมู่ และ คีย์เวิร์ดค้นหา
+            let filteredArticles = articles.filter(article => {
+                const matchCategory = activeCategory === 'all' 
+                    ? article.category !== 'lyrics' 
+                    : article.category === activeCategory;
+                    
+                const matchSearch = !searchKeyword || 
+                    article.title.toLowerCase().includes(searchKeyword) ||
+                    (article.summary && article.summary.toLowerCase().includes(searchKeyword)) ||
+                    (article.tags && article.tags.some(tag => tag.toLowerCase().includes(searchKeyword)));
+                
+                return matchCategory && matchSearch;
+            });
+
+            // 2. เรียงลำดับข้อมูล
             const sortType = sortSelect ? sortSelect.value : 'date-new';
-            
             filteredArticles.sort((a, b) => {
                 if (sortType === 'name-asc') {
                     return a.title.localeCompare(b.title, 'th', { sensitivity: 'base' });
@@ -1304,8 +1312,9 @@
                 }
             });
 
+            // 3. แสดงผลการ์ด
             if (filteredArticles.length === 0) {
-                cardsContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px 0;">ยังไม่มีบทความในหมวดหมู่นี้</div>`;
+                cardsContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px 0;">ไม่พบบทความที่ค้นหา</div>`;
             } else {
                 filteredArticles.forEach(article => {
                     const card = document.createElement('article');
@@ -1662,63 +1671,6 @@
                 }
             }
         });
-			function renderCards() {
-    cardsContainer.innerHTML = '';
-    
-    const searchKeyword = document.getElementById('search-input')?.value.toLowerCase().trim() || '';
-    
-    // กรองตามหมวดหมู่ และ กรองตามคำค้นหา (ค้นจากชื่อ, เนื้อหาย่อ หรือแท็ก)
-    let filteredArticles = articles.filter(article => {
-        const matchCategory = activeCategory === 'all' || article.category === activeCategory;
-        const matchSearch = !searchKeyword || 
-            article.title.toLowerCase().includes(searchKeyword) ||
-            article.summary.toLowerCase().includes(searchKeyword) ||
-            (article.tags && article.tags.some(tag => tag.toLowerCase().includes(searchKeyword)));
-        
-        return matchCategory && matchSearch;
-    });
-
-    const sortType = sortSelect ? sortSelect.value : 'date-new';
-    
-    filteredArticles.sort((a, b) => {
-        if (sortType === 'name-asc') {
-            return a.title.localeCompare(b.title, 'th', { sensitivity: 'base' });
-        } else if (sortType === 'name-desc') {
-            return b.title.localeCompare(a.title, 'th', { sensitivity: 'base' });
-        } else if (sortType === 'date-old') {
-            return (a.id || 0) - (b.id || 0);
-        } else {
-            return (b.id || 0) - (a.id || 0);
-        }
-    });
-
-    if (filteredArticles.length === 0) {
-        cardsContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px 0;">ไม่พบบทความที่ค้นหา</div>`;
-    } else {
-        filteredArticles.forEach(article => {
-            const card = document.createElement('article');
-            card.className = 'card';
-
-            card.innerHTML = `
-                <div class="card-image-wrap" onclick="openReadModal(${article.id})">
-                    <span class="card-badge">${article.categoryName}</span>
-                    <img src="${article.image}" alt="${article.title}">
-                </div>
-                <div class="card-body" onclick="openReadModal(${article.id})">
-                    <h3 class="card-title">${article.title}</h3>
-                    <p class="card-text">${article.summary}</p>
-                    <div class="card-footer">
-                        <span>อัปเดต: ${article.updated || article.updatedAt || 'ล่าสุด'}</span>
-                        <span class="read-more">อ่านต่อ &rarr;</span>
-                    </div>
-                </div>
-            `;
-            cardsContainer.appendChild(card);
-        });
-    }
-
-    updateCategoryCounts();
-}
     </script>
     <footer class="site-footer">
         <div class="footer-content">

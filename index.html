@@ -3,119 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tethys's Archive BY Ku-Bot Factory</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" type="image/x-icon" href="./image/icon/main.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Primary Meta Tags -->
-    <title>Tethys's Archive BY Ku-Bot Factory</title>
-    <meta name="title" content="Tethys's Archive BY Ku-Bot Factory">
-    <meta name="description" content="รวมข้อมูล Lore กาว และเนื้อเรื่อง Wuthering Waves">
-
-    <!-- Open Graph / Facebook / Line / Discord -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tethys-archive.vercel.app/">
-    <meta property="og:title" content="Tethys's Archive BY Ku-Bot Factory">
-    <meta property="og:description" content="รวมข้อมูล Lore กาว และเนื้อเรื่อง Wuthering Waves">
-    <meta property="og:image" content="https://raw.githubusercontent.com/kubotfactory/LoreWUWA/6bcd40f63d73ff22989e89e28627078b427c3aff/image/banner/embed.png">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://tethys-archive.vercel.app/">
-    <meta property="twitter:title" content="Tethys's Archive BY Ku-Bot Factory">
-    <meta property="twitter:description" content="รวมข้อมูล Lore กาว และเนื้อเรื่อง Wuthering Waves">
-    <meta property="twitter:image" content="https://raw.githubusercontent.com/kubotfactory/LoreWUWA/6bcd40f63d73ff22989e89e28627078b427c3aff/image/banner/embed.png">
-    
+    <title>Lore & Articles Hub</title>
     <style>
-        @font-face {
-            font-family: 'Lagu Sans';
-            src: url('./fonts/Lagu Sans ExtraBold.otf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
         :root {
-            --bg-dark: #0b0e14;
-            --card-bg: #151922;
-            --sidebar-bg: #11141c;
-            --accent-yellow: #fbcc27;
-            --text-main: #e0e6ed;
-            --text-muted: #8a99ad;
-            --badge-bg: #fbcc27;
-            --danger-red: #ff4d4d;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-color: #38bdf8;
+            --accent-hover: #0284c7;
+            --danger-color: #ef4444;
+            --border-color: #334155;
+            --font-family: 'Prompt', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Kanit', sans-serif;
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-color);
             color: var(--text-main);
-            min-height: 100vh;
+            font-family: var(--font-family);
+            line-height: 1.6;
             padding-bottom: 60px;
         }
 
-        .hero {
-            position: relative;
-            height: 35vh;
-            min-height: 250px;
-            background: linear-gradient(to bottom, rgba(11, 14, 20, 0.4), var(--bg-dark)),
-                        url('image/banner/banner.jpg') center/cover no-repeat;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            border-bottom: 1px solid #1a202c;
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .hero-subtitle {
-            color: var(--accent-yellow);
-            font-size: clamp(0.75rem, 1.5vw, 0.9rem);
-            letter-spacing: 3px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .hero-title {
-            font-family: 'Lagu Sans', 'Kanit', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
+        .site-title {
+            font-size: 1.5rem;
             font-weight: 700;
-            color: #ffffff;
-            text-shadow: 0 0 15px rgba(251, 204, 39, 0.6);
-            letter-spacing: 2px;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .container {
-            width: 95%;
-            max-width: 1800px;
-            margin: 30px auto 0;
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+            color: #fff;
+        }
+
+        .btn-icon {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn-icon:hover {
+            color: var(--text-main);
+            border-color: var(--accent-color);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
             display: grid;
-            grid-template-columns: 280px 1fr;
+            grid-template-columns: 260px 1fr;
             gap: 30px;
         }
 
+        /* Sidebar & Filters */
         .sidebar {
-            background-color: var(--sidebar-bg);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 20px;
-            height: fit-content;
-            border: 1px solid #1e2430;
         }
 
         .sidebar-title {
-            color: var(--accent-yellow);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--accent-color);
         }
 
         .category-list {
@@ -125,55 +132,39 @@
             gap: 8px;
         }
 
-        .category-dropdown-mobile {
-            display: none;
-            width: 100%;
-            background-color: var(--card-bg);
-            color: var(--text-main);
-            border: 1px solid var(--accent-yellow);
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            outline: none;
-            cursor: pointer;
-        }
-
         .category-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 14px;
+            padding: 10px 12px;
             border-radius: 8px;
-            color: var(--text-muted);
             cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.9rem;
-            user-select: none;
-        }
-
-        .category-item:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            color: #fff;
-        }
-
-        .category-item.active {
-            border: 1px solid var(--accent-yellow);
-            color: var(--accent-yellow);
-            background-color: rgba(251, 204, 39, 0.08);
-        }
-
-        .badge-count {
-            background-color: #1e2532;
             color: var(--text-muted);
-            font-size: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .category-item:hover, .category-item.active {
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--accent-color);
+        }
+
+        .category-count {
+            background-color: var(--border-color);
+            color: var(--text-main);
+            font-size: 0.8rem;
             padding: 2px 8px;
             border-radius: 12px;
         }
 
-        .category-item.active .badge-count {
-            background-color: var(--accent-yellow);
-            color: #000;
-            font-weight: bold;
+        .category-dropdown-mobile {
+            display: none;
+            width: 100%;
+            padding: 10px;
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: inherit;
         }
 
         .content-header {
@@ -181,207 +172,172 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
-            border-left: 4px solid var(--accent-yellow);
-            padding-left: 12px;
-        }
-
-        .header-controls {
-            display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             gap: 15px;
         }
 
-        .sort-select {
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 300px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 8px 12px 8px 36px;
             background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
             color: var(--text-main);
-            border: 1px solid #242c3d;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            outline: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            font-family: inherit;
         }
 
-        .sort-select:hover, .sort-select:focus {
-            border-color: var(--accent-yellow);
+        .search-box .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
         }
 
-        .btn-add-article {
-            background: var(--accent-yellow);
-            color: #000;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s;
-        }
-
-        .admin-mode .btn-add-article {
-            display: flex;
-        }
-
-        .btn-add-article:hover {
-            box-shadow: 0 0 15px rgba(251, 204, 39, 0.5);
-            transform: translateY(-2px);
-        }
-
+        /* Card Grid */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
         }
 
         .card {
             background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid #1e2430;
             display: flex;
             flex-direction: column;
-            transition: transform 0.2s, border-color 0.2s;
             position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
         }
 
         .card:hover {
             transform: translateY(-4px);
-            border-color: var(--accent-yellow);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border-color: var(--accent-color);
         }
 
         .card-image-wrap {
             position: relative;
             width: 100%;
-            aspect-ratio: 1 / 1;
-            cursor: pointer;
-            overflow: hidden;
+            padding-top: 56.25%; /* Default 16:9 */
+            background-color: #000;
         }
 
+        /* 16:9 Aspect Ratio specific for Lyrics category */
         .card.card-lyrics .card-image-wrap {
-            aspect-ratio: 16 / 9;
+            padding-top: 56.25%;
         }
 
         .card-image-wrap img {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover .card-image-wrap img {
-            transform: scale(1.05);
         }
 
         .card-badge {
             position: absolute;
             top: 10px;
             left: 10px;
-            background-color: var(--badge-bg);
-            color: #000;
-            font-size: 0.7rem;
-            font-weight: bold;
-            padding: 3px 8px;
-            border-radius: 4px;
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(4px);
+            color: var(--accent-color);
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--accent-color);
             z-index: 2;
         }
 
+        .card-body {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .card-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+        }
+
         .card-admin-actions {
+            display: none;
             position: absolute;
             top: 10px;
             right: 10px;
-            display: none;
-            gap: 6px;
-            z-index: 5;
+            z-index: 10;
+            gap: 5px;
         }
 
-        .admin-mode .card-admin-actions {
+        body.admin-mode .card-admin-actions {
             display: flex;
         }
 
         .btn-card-action {
-            background: rgba(11, 14, 20, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
             padding: 4px 8px;
-            border-radius: 6px;
+            border-radius: 4px;
             font-size: 0.75rem;
             cursor: pointer;
-            backdrop-filter: blur(4px);
-            transition: all 0.2s;
         }
 
-        .btn-card-action:hover {
-            background: var(--accent-yellow);
-            color: #000;
+        .btn-card-action.delete {
+            color: var(--danger-color);
         }
 
-        .btn-card-action.delete:hover {
-            background: var(--danger-red);
-            color: #fff;
-        }
-
-        .card-body {
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            cursor: pointer;
-        }
-
-        .card-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            line-height: 1.4;
-            color: #fff;
-        }
-
-        .card.card-lyrics .card-title {
-            margin-bottom: 0;
-            text-align: center;
-        }
-
-        .card-text {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 16px;
-            flex-grow: 1;
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 12px;
-        }
-
-        .read-more {
-            color: var(--accent-yellow);
-            font-weight: 600;
-        }
-
+        /* Modal Base */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.25s ease-in-out;
+            transition: all 0.3s;
             padding: 20px;
         }
 
@@ -389,682 +345,346 @@
             opacity: 1;
             visibility: visible;
         }
-        
+
         .modal-container {
             background-color: var(--card-bg);
-            border: 1px solid var(--accent-yellow);
-            border-radius: 16px;
-            width: 95%;
-            max-width: 1000px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 800px;
             max-height: 90vh;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 0 35px rgba(251, 204, 39, 0.25);
             position: relative;
-            transform: scale(0.95);
-            transition: transform 0.25s ease-in-out;
         }
 
-        .modal-overlay.active .modal-container,
-        .modal-overlay.active .form-modal-container {
-            transform: scale(1);
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
             font-size: 1.5rem;
-            line-height: 1;
             cursor: pointer;
-            transition: all 0.2s ease;
-            z-index: 20;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .modal-close:hover {
-            background-color: var(--accent-yellow);
-            color: #000;
-            border-color: var(--accent-yellow);
-            transform: rotate(90deg);
-        }
-
-        .modal-scroll-area {
-            overflow-y: auto;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .modal-header-grid {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 24px;
-            align-items: start;
-        }
-
-        .modal-container.lyrics-mode .modal-header-grid {
-            grid-template-columns: 420px 1fr;
-        }
-
-        .modal-img-wrap {
+        .modal-media {
             width: 100%;
-            aspect-ratio: 1 / 1;
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
             background: #000;
-            position: relative;
+            aspect-ratio: 16/9;
         }
 
-        .modal-container.lyrics-mode .modal-img-wrap {
-            aspect-ratio: 16 / 9;
-        }
-
-        .modal-img {
+        .modal-media img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .modal-meta-col {
+        .modal-media iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        .modal-content-text {
+            white-space: pre-wrap;
+            line-height: 1.8;
+            color: #e2e8f0;
+        }
+
+        /* Form Controls */
+        .form-group {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-        }
-
-        .modal-title {
-            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
-            color: #fff;
-            line-height: 1.3;
-            font-weight: 700;
-        }
-
-        .modal-badge {
-            display: inline-block;
-            align-self: flex-start;
-            background-color: var(--badge-bg);
-            color: #000;
-            font-size: 0.8rem;
-            font-weight: bold;
-            padding: 4px 12px;
-            border-radius: 4px;
-        }
-
-        .modal-dates-row {
-            display: flex;
-            gap: 15px;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            background: rgba(0, 0, 0, 0.2);
-            padding: 8px 12px;
-            border-radius: 6px;
-            width: fit-content;
-        }
-
-        .date-item span {
-            color: var(--text-main);
-            font-weight: 500;
-        }
-
-        .modal-tags-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px dashed rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
-            padding: 10px 14px;
-            display: flex;
-            flex-wrap: wrap;
             gap: 8px;
-            align-items: center;
-        }
-
-        .modal-tags-label {
-            font-size: 0.8rem;
-            color: var(--accent-yellow);
-            font-weight: 600;
-            margin-right: 4px;
-        }
-
-        .tag-pill {
-            background: #1e2532;
-            color: var(--text-main);
-            font-size: 0.75rem;
-            padding: 3px 10px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .modal-body-content {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 20px;
-            color: var(--text-main);
-            font-size: 1rem;
-            line-height: 1.8;
-            font-weight: 300;
-            white-space: pre-wrap;
-        }
-
-        .modal-body-content p {
-            text-indent: 2em;
-            margin-bottom: 1.2rem;
-            line-height: 1.8;
-        }
-
-        .form-modal-container {
-            background-color: var(--card-bg);
-            border: 1px solid var(--accent-yellow);
-            border-radius: 16px;
-            width: 90%;
-            max-width: 650px;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 30px;
-            position: relative;
-            box-shadow: 0 0 30px rgba(251, 204, 39, 0.2);
-            transform: scale(0.95);
-            transition: transform 0.25s ease-in-out;
-        }
-
-        .auth-modal-container {
-            max-width: 480px;
-        }
-
-        .form-title {
-            font-size: 1.4rem;
-            color: var(--accent-yellow);
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 15px;
         }
 
         .form-group label {
-            display: block;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
-            margin-bottom: 6px;
         }
 
         .form-control {
-            width: 100%;
-            background: #0d1017;
-            border: 1px solid #242c3d;
-            border-radius: 8px;
-            padding: 10px 14px;
-            color: #fff;
-            font-size: 0.9rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .form-control:focus {
-            border-color: var(--accent-yellow);
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 10px;
+            border-radius: 6px;
+            font-family: inherit;
         }
 
         textarea.form-control {
             resize: vertical;
-            min-height: 100px;
+            min-height: 120px;
         }
 
-        .form-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-            margin-top: 25px;
-        }
-
-        .btn-submit {
-            background: var(--accent-yellow);
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .btn-cancel {
-            background: transparent;
-            color: var(--text-muted);
-            border: 1px solid #242c3d;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .btn-cancel:hover {
-            color: #fff;
-        }
-
-        .error-msg {
-            color: var(--danger-red);
-            font-size: 0.8rem;
-            margin-top: 6px;
+        .admin-only {
             display: none;
         }
 
-        /* ปุ่มแอดมินรูปไอคอนปากกาแบบทรงกลม มินิมอล */
-        .admin-btn-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 46px;
-            height: 46px;
-            background-color: #11141c;
-            border: 1px solid var(--accent-yellow);
-            color: var(--accent-yellow);
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-            transition: all 0.2s ease;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        body.admin-mode .admin-only {
+            display: block;
         }
 
-        .admin-btn-toggle:hover {
-            background-color: var(--accent-yellow);
-            color: #000;
-            transform: scale(1.08);
-        }
-
-        .admin-mode .admin-btn-toggle {
-            border-color: var(--danger-red);
-            color: var(--danger-red);
-        }
-
-        .admin-mode .admin-btn-toggle:hover {
-            background-color: var(--danger-red);
-            color: #fff;
+        .tag-pill {
+            display: inline-block;
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--accent-color);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 5px;
         }
 
         @media (max-width: 768px) {
-            .container {
+            .main-container {
                 grid-template-columns: 1fr;
-                width: 92%;
-                margin-top: 15px;
-                gap: 20px;
-            }
-            .sidebar {
-                padding: 12px;
-            }
-            .sidebar-title {
-                margin-bottom: 10px;
             }
 
             .category-list {
                 display: none;
             }
+
             .category-dropdown-mobile {
                 display: block;
             }
-
-            .cards-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-            .card-body {
-                padding: 10px;
-            }
-            .card-title {
-                font-size: 0.82rem;
-                margin-bottom: 4px;
-            }
-            .card-text {
-                font-size: 0.72rem;
-                margin-bottom: 8px;
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-            }
-            .card-badge {
-                font-size: 0.6rem;
-                padding: 2px 5px;
-                top: 6px;
-                left: 6px;
-            }
-            .card-footer {
-                padding-top: 6px;
-                font-size: 0.65rem;
-            }
-
-            .modal-header-grid,
-            .modal-container.lyrics-mode .modal-header-grid {
-                grid-template-columns: 1fr;
-            }
-            .modal-img-wrap {
-                max-width: 100%;
-                margin: 0 auto;
-            }
-            .modal-scroll-area {
-                padding: 18px;
-            }
-            .content-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
-            }
-            .header-controls {
-                width: 100%;
-                justify-content: space-between;
-            }
-        }
-			.search-box {
-    flex-grow: 1;
-    max-width: 420px;
-    margin: 0 20px;
-    position: relative;
-}
-
-.search-box input {
-    width: 100%;
-    background-color: rgba(21, 25, 34, 0.7);
-    border: 1px solid rgba(251, 204, 39, 0.2);
-    color: var(--text-main);
-    padding: 10px 16px 10px 42px; /* เว้นที่ด้านซ้ายสำหรับไอคอน */
-    border-radius: 8px;
-    font-size: 0.88rem;
-    outline: none;
-    backdrop-filter: blur(4px);
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
-}
-
-/* เปลี่ยนสี Placeholder ให้เนียนไปกับโทนเว็บ */
-.search-box input::placeholder {
-    color: #526071;
-    font-size: 0.85rem;
-}
-
-/* Hover Effect */
-.search-box input:hover {
-    border-color: rgba(251, 204, 39, 0.5);
-    background-color: var(--card-bg);
-}
-
-/* Focus Effect ตอนคลิกพิมพ์ */
-.search-box input:focus {
-    border-color: var(--accent-yellow);
-    background-color: var(--card-bg);
-    box-shadow: 0 0 15px rgba(251, 204, 39, 0.25), 
-                inset 0 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-/* ไอคอนแว่นขยายแบบ CSS Pure */
-.search-box::before {
-    content: "🔍";
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.85rem;
-    opacity: 0.5;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
-}
-
-.search-box:focus-within::before {
-    opacity: 1;
-}
-        .site-footer {
-            background-color: #0b0e14;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 30px 20px;
-            margin-top: 50px;
-            text-align: center;
-            font-family: 'Kanit', sans-serif;
-            width: 100%;
-            position: relative;
-            z-index: 10;
-        }
-
-        .footer-content {
-            max-width: 900px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .copyright {
-            color: var(--accent-yellow, #8a99ad);
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-        }
-
-        .disclaimer {
-            color: var(--text-muted, #8a99ad);
-            font-size: 0.75rem;
-            line-height: 1.6;
-            font-weight: 300;
-        }
-
-        .disclaimer strong {
-            color: #c2d0e0;
-            font-weight: 300;
         }
     </style>
 </head>
 <body>
 
-    <header class="hero">
-        <div class="hero-subtitle">WUTHERING WAVES • LORE ARCHIVE</div>
-        <h1 class="hero-title">Tethys's Archive BY Ku-Bot Factory</h1>
+    <header>
+        <div class="header-container">
+            <div class="site-title">
+                📚 <span>Lore Hub</span>
+            </div>
+            <div class="header-actions">
+                <button id="btn-open-add-modal" class="btn admin-only">+ เพิ่มบทความ</button>
+                <button id="btn-toggle-admin" class="btn-icon" title="โหมดแก้ไข (Admin)">
+                    <span id="admin-btn-icon">✏️</span>
+                </button>
+            </div>
+        </div>
     </header>
 
-    <div class="container">
+    <div class="main-container">
+        <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="sidebar-title">🌐 หมวดหมู่เนื้อหา</div>
-            
-            <ul class="category-list">
-                <li class="category-item active" data-category="all">
-                    <span>ทั้งหมด</span>
-                    <span class="badge-count" id="count-all">0</span>
-                </li>
-                <li class="category-item" data-category="main">
-                    <span>Lore พื้นฐาน</span>
-                    <span class="badge-count" id="count-main">0</span>
-                </li>
-                <li class="category-item" data-category="history">
-                    <span>ประวัติศาสตร์</span>
-                    <span class="badge-count" id="count-history">0</span>
-                </li>
-                <li class="category-item" data-category="regions">
-                    <span>ภูมิภาค</span>
-                    <span class="badge-count" id="count-regions">0</span>
-                </li>
-                <li class="category-item" data-category="organizations">
-                    <span>องค์กร/ฝ่าย</span>
-                    <span class="badge-count" id="count-organizations">0</span>
-                </li>
-                <li class="category-item" data-category="characters">
-                    <span>ตัวละคร</span>
-                    <span class="badge-count" id="count-characters">0</span>
-                </li>
-                <li class="category-item" data-category="lyrics">
-                    <span>เนื้อเพลงแปลไทย</span>
-                    <span class="badge-count" id="count-lyrics">0</span>
-                </li>
-                <li class="category-item" data-category="other">
-                    <span>อื่นๆ</span>
-                    <span class="badge-count" id="count-other">0</span>
-                </li>
-            </ul>
+            <div class="sidebar-box">
+                <div class="sidebar-title">หมวดหมู่</div>
+                
+                <select id="category-dropdown-mobile" class="category-dropdown-mobile">
+                    <option value="all">ทั้งหมด</option>
+                    <option value="main">Lore พื้นฐาน</option>
+                    <option value="history">ประวัติศาสตร์</option>
+                    <option value="regions">ภูมิภาค</option>
+                    <option value="organizations">องค์กร/ฝ่าย</option>
+                    <option value="characters">ตัวละคร</option>
+                    <option value="lyrics">เนื้อเพลงแปลไทย</option>
+                    <option value="other">อื่นๆ</option>
+                </select>
 
-            <select class="category-dropdown-mobile" id="category-dropdown-mobile">
-                <option value="all">ทั้งหมด (<span id="opt-count-all">0</span>)</option>
-                <option value="main">Lore พื้นฐาน</option>
-                <option value="history">ประวัติศาสตร์</option>
-                <option value="regions">ภูมิภาค</option>
-                <option value="organizations">องค์กร/ฝ่าย</option>
-                <option value="characters">ตัวละคร</option>
-                <option value="lyrics">เนื้อเพลงแปลไทย</option>
-                <option value="other">อื่นๆ</option>
-            </select>
+                <ul class="category-list">
+                    <li class="category-item active" data-category="all">
+                        <span>ทั้งหมด</span>
+                        <span class="category-count" id="count-all">0</span>
+                    </li>
+                    <li class="category-item" data-category="main">
+                        <span>Lore พื้นฐาน</span>
+                        <span class="category-count" id="count-main">0</span>
+                    </li>
+                    <li class="category-item" data-category="history">
+                        <span>ประวัติศาสตร์</span>
+                        <span class="category-count" id="count-history">0</span>
+                    </li>
+                    <li class="category-item" data-category="regions">
+                        <span>ภูมิภาค</span>
+                        <span class="category-count" id="count-regions">0</span>
+                    </li>
+                    <li class="category-item" data-category="organizations">
+                        <span>องค์กร/ฝ่าย</span>
+                        <span class="category-count" id="count-organizations">0</span>
+                    </li>
+                    <li class="category-item" data-category="characters">
+                        <span>ตัวละคร</span>
+                        <span class="category-count" id="count-characters">0</span>
+                    </li>
+                    <li class="category-item" data-category="lyrics">
+                        <span>เนื้อเพลงแปลไทย</span>
+                        <span class="category-count" id="count-lyrics">0</span>
+                    </li>
+                    <li class="category-item" data-category="other">
+                        <span>อื่นๆ</span>
+                        <span class="category-count" id="count-other">0</span>
+                    </li>
+                </ul>
+            </div>
         </aside>
 
+        <!-- Main Content Area -->
         <main>
             <div class="content-header">
-                <div>
-                    <h2 class="content-title" id="current-category-name">ทั้งหมด</h2>
-                    <span class="sub-tag">คุย Lore ไม่คุย Leak</span>
+                <h2 id="current-category-name" style="font-size: 1.2rem;">ทั้งหมด</h2>
+                
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-input" placeholder="ค้นหาบทความ..." oninput="renderCards()">
                 </div>
-				<div class="search-box">
-					<input type="text" id="search-input" placeholder="ค้นหาชื่อบทความ, คีย์เวิร์ด, หรือแท็ก..." oninput="renderCards()">
-					</div>
-                <div class="header-controls">
-                    <select id="sort-select" class="sort-select" onchange="renderCards()">
-                        <option value="name-asc">เรียงตามชื่อ (ก - ฮ / A - Z)</option>
-                        <option value="name-desc">เรียงตามชื่อ (ฮ - ก / Z - A)</option>
-                        <option value="date-new" selected>สร้างล่าสุด</option>
-                        <option value="date-old">สร้างเก่าสุด</option>
-                    </select>
 
-                    <button class="btn-add-article" id="btn-open-add-modal">
-                        <span>+</span> เพิ่มบทความ
-                    </button>
-                </div>
+                <select id="sort-select" class="form-control" style="width: auto;" onchange="renderCards()">
+                    <option value="date-new">ใหม่ล่าสุด</option>
+                    <option value="date-old">เก่าที่สุด</option>
+                    <option value="name-asc">ชื่อ A-Z / ก-ฮ</option>
+                    <option value="name-desc">ชื่อ Z-A / ฮ-ก</option>
+                </select>
             </div>
 
-            <div class="cards-grid" id="cards-container"></div>
+            <!-- Card Container -->
+            <div id="cards-container" class="cards-grid">
+                <!-- Cards will be populated here by JavaScript -->
+            </div>
         </main>
     </div>
 
-    <!-- 1. POPUP READ ARTICLE MODAL -->
-    <div class="modal-overlay" id="article-modal">
-        <div class="modal-container" id="modal-container-box">
-            <button class="modal-close" id="modal-close-btn">&times;</button>
-            <div class="modal-scroll-area">
-                <div class="modal-header-grid">
-                    <div class="modal-img-wrap" id="modal-media-wrapper">
-                        <img src="" alt="" class="modal-img" id="modal-img">
-                    </div>
-                    
-                    <div class="modal-meta-col">
-                        <h2 class="modal-title" id="modal-title"></h2>
-                        <span class="modal-badge" id="modal-badge"></span>
-                        
-                        <div class="modal-dates-row">
-                            <div class="date-item">สร้าง: <span id="modal-created">-</span></div>
-                            <div class="date-item">| ล่าสุด: <span id="modal-updated">-</span></div>
-                        </div>
-
-                        <div class="modal-tags-box" id="modal-tags-box">
-                            <span class="modal-tags-label">🏷️ คำเฉพาะ:</span>
-                            <div id="modal-tags-list" style="display: flex; gap: 6px; flex-wrap: wrap;"></div>
-                        </div>
-                    </div>
+    <!-- Modal อ่านบทความ -->
+    <div id="article-modal" class="modal-overlay">
+        <div id="modal-container-box" class="modal-container">
+            <div class="modal-header">
+                <div>
+                    <span id="modal-badge" class="tag-pill">Badge</span>
+                    <h2 id="modal-title" style="margin-top: 5px;">Title</h2>
                 </div>
-
-                <div class="modal-body-content" id="modal-text"></div>
+                <button id="modal-close-btn" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-media-wrapper" class="modal-media"></div>
+                <div style="font-size: 0.85rem; color: var(--text-muted); display: flex; gap: 15px;">
+                    <span>สร้างเมื่อ: <span id="modal-created">-</span></span>
+                    <span>อัปเดต: <span id="modal-updated">-</span></span>
+                </div>
+                <div id="modal-tags-box" style="display: flex; align-items: center;">
+                    <span style="font-size: 0.85rem; color: var(--text-muted); margin-right: 10px;">แท็ก:</span>
+                    <div id="modal-tags-list"></div>
+                </div>
+                <div id="modal-text" class="modal-content-text">Content</div>
             </div>
         </div>
     </div>
 
-    <!-- 2. POPUP ADD / EDIT FORM MODAL -->
-    <div class="modal-overlay" id="form-modal">
-        <div class="form-modal-container">
-            <h3 class="form-title" id="form-modal-title">เพิ่มบทความใหม่</h3>
-            <form id="article-form">
-                <input type="hidden" id="form-article-id">
-                
-                <div class="form-group">
-                    <label>หัวข้อบทความ</label>
-                    <input type="text" class="form-control" id="form-title" required placeholder="ใส่ชื่อบทความ...">
-                </div>
-
-                <div class="form-group">
-                    <label>หมวดหมู่</label>
-                    <select class="form-control" id="form-category">
-                        <option value="main">Lore พื้นฐาน</option>
-                        <option value="history">ประวัติศาสตร์</option>
-                        <option value="regions">ภูมิภาค</option>
-                        <option value="organizations">องค์กร/ฝ่าย</option>
-                        <option value="characters">ตัวละคร</option>
-                        <option value="lyrics">เนื้อเพลงแปลไทย</option>
-                        <option value="other">อื่นๆ</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>รูปภาพปก / ลิงก์ YouTube (กรณีหมวดเนื้อเพลงใส่ลิงก์ YouTube ได้)</label>
-                    <div style="display: flex; gap: 10px; margin-bottom: 8px;">
-                        <input type="file" id="form-image-file" accept="image/*" class="form-control" style="padding: 6px;">
-                        <input type="url" class="form-control" id="form-image" placeholder="หรือวางลิงก์ URL (https://...) / YouTube URL">
+    <!-- Modal เพิ่ม/แก้ไข บทความ -->
+    <div id="form-modal" class="modal-overlay">
+        <div class="modal-container" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3 id="form-modal-title">เพิ่มบทความใหม่</h3>
+                <button id="btn-cancel-form" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="article-form">
+                    <input type="hidden" id="form-article-id">
+                    
+                    <div class="form-group">
+                        <label>หัวข้อบทความ</label>
+                        <input type="text" id="form-title" class="form-control" required>
                     </div>
-                    <div id="image-preview-box" style="display: none; align-items: center; gap: 10px; margin-top: 8px; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 8px;">
-                        <img id="image-preview" src="" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
-                        <span id="image-preview-name" style="font-size: 0.8rem; color: var(--text-muted);"></span>
+
+                    <div class="form-group">
+                        <label>หมวดหมู่</label>
+                        <select id="form-category" class="form-control" required>
+                            <option value="main">Lore พื้นฐาน</option>
+                            <option value="history">ประวัติศาสตร์</option>
+                            <option value="regions">ภูมิภาค</option>
+                            <option value="organizations">องค์กร/ฝ่าย</option>
+                            <option value="characters">ตัวละคร</option>
+                            <option value="lyrics">เนื้อเพลงแปลไทย</option>
+                            <option value="other">อื่นๆ</option>
+                        </select>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label>คำเฉพาะ / คีย์เวิร์ด (คั่นด้วยเครื่องหมายจุลภาค ,)</label>
-                    <input type="text" class="form-control" id="form-tags" placeholder="เช่น Sol3, Lament, Rover, Sentinel">
-                </div>
+                    <div class="form-group">
+                        <label>รูปภาพปก (URL หรือ URL วิดีโอ YouTube)</label>
+                        <input type="text" id="form-image" class="form-control" placeholder="https://...">
+                    </div>
 
-                <div class="form-group">
-                    <label>เรื่องย่อ (แสดงบนการ์ด)</label>
-                    <textarea class="form-control" id="form-summary" required placeholder="สั้นๆ 2-3 บรรทัด..."></textarea>
-                </div>
+                    <div class="form-group">
+                        <label>หรืออัปโหลดรูปภาพเข้า GitHub Repositories</label>
+                        <input type="file" id="form-image-file" class="form-control" accept="image/*">
+                        <div id="image-preview-box" style="display: none; margin-top: 10px; align-items: center; gap: 10px;">
+                            <img id="image-preview" src="" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+                            <span id="image-preview-name" style="font-size: 0.85rem; color: var(--text-muted);"></span>
+                        </div>
+                    </div>
 
-                <div class="form-group">
-                    <label>เนื้อหาฉบับเต็ม</label>
-                    <textarea class="form-control" id="form-content" style="min-height: 180px;" required placeholder="รายละเอียดบทความทั้งหมด..."></textarea>
-                </div>
+                    <div class="form-group">
+                        <label>แท็ก (คั่นด้วยเครื่องหมายจุลภาค , )</label>
+                        <input type="text" id="form-tags" class="form-control" placeholder="เช่น Tag1, Tag2">
+                    </div>
 
-                <div class="form-actions">
-                    <button type="button" class="btn-cancel" id="btn-cancel-form">ยกเลิก</button>
-                    <button type="submit" class="btn-submit" id="btn-save-submit">บันทึกข้อมูล</button>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <label>เรื่องย่อ / สรุปสั้นๆ</label>
+                        <textarea id="form-summary" class="form-control" style="min-height: 60px;"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>เนื้อหาบทความ</label>
+                        <textarea id="form-content" class="form-control" style="min-height: 180px;" required></textarea>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+                        <button type="button" id="btn-cancel-form" class="btn-icon">ยกเลิก</button>
+                        <button type="submit" id="btn-save-submit" class="btn">บันทึกข้อมูล</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
-    <!-- 3. POPUP GITHUB TOKEN AUTH MODAL -->
-    <div class="modal-overlay" id="auth-modal">
-        <div class="form-modal-container auth-modal-container">
-            <h3 class="form-title">🔑 ยืนยันสิทธิ์ GitHub Admin</h3>
-            <form id="auth-form">
-                <div class="form-group">
-                    <label>GitHub Username</label>
-                    <input type="text" class="form-control" id="auth-username" required placeholder="เช่น my-username">
-                </div>
-                <div class="form-group">
-                    <label>Repository Name</label>
-                    <input type="text" class="form-control" id="auth-repo" required placeholder="เช่น my-lore-website">
-                </div>
-                <div class="form-group">
-                    <label>GitHub Personal Access Token (PAT)</label>
-                    <input type="password" class="form-control" id="auth-token" required placeholder="ghp_xxxxxxxxxxxx">
-                    <div class="error-msg" id="auth-error"> token หรือข้อมูล Repo ไม่ถูกต้อง</div>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn-cancel" id="btn-cancel-auth">ยกเลิก</button>
-                    <button type="submit" class="btn-submit">เชื่อมต่อ Admin</button>
-                </div>
-            </form>
+    <!-- Modal ยืนยันสิทธิ์ Admin -->
+    <div id="auth-modal" class="modal-overlay">
+        <div class="modal-container" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3>เข้าสู่ระบบ Admin</h3>
+                <button id="btn-cancel-auth" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="auth-form">
+                    <div class="form-group">
+                        <label>GitHub Username</label>
+                        <input type="text" id="auth-username" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Repository Name</label>
+                        <input type="text" id="auth-repo" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Personal Access Token (PAT)</label>
+                        <input type="password" id="auth-token" class="form-control" required>
+                    </div>
+                    <div id="auth-error" style="color: var(--danger-color); font-size: 0.85rem; display: none; margin-bottom: 10px;">
+                        ไม่สามารถเชื่อมต่อ GitHub ได้ กรุณาตรวจสอบข้อมูลอีกครั้ง
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">เข้าสู่ระบบ</button>
+                </form>
+            </div>
         </div>
     </div>
 
-    <button class="admin-btn-toggle" id="btn-toggle-admin" title="โหมดแก้ไข (Admin)">
-        <span id="admin-btn-icon">✏️</span>
-    </button>
-
+    <!-- Scripts Logic หลัก -->
     <script>
         let GITHUB_USERNAME = "";
         let REPO_NAME = "";
@@ -1286,9 +906,22 @@
         function renderCards() {
             cardsContainer.innerHTML = '';
             
-            let filteredArticles = activeCategory === 'all' 
-                ? articles.filter(article => article.category !== 'lyrics') 
-                : articles.filter(article => article.category === activeCategory);
+            const searchKeyword = document.getElementById('search-input')?.value.toLowerCase().trim() || '';
+
+            // 1. กรองข้ามหมวด 'lyrics' เมื่ออยู่ในหน้า 'all'
+            // 2. กรองตามคำค้นหา (ชื่อ, เรื่องย่อ, แท็ก)
+            let filteredArticles = articles.filter(article => {
+                const matchCategory = activeCategory === 'all' 
+                    ? article.category !== 'lyrics' 
+                    : article.category === activeCategory;
+
+                const matchSearch = !searchKeyword || 
+                    article.title.toLowerCase().includes(searchKeyword) ||
+                    (article.summary && article.summary.toLowerCase().includes(searchKeyword)) ||
+                    (article.tags && article.tags.some(tag => tag.toLowerCase().includes(searchKeyword)));
+                
+                return matchCategory && matchSearch;
+            });
 
             const sortType = sortSelect ? sortSelect.value : 'date-new';
             
@@ -1305,14 +938,16 @@
             });
 
             if (filteredArticles.length === 0) {
-                cardsContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px 0;">ยังไม่มีบทความในหมวดหมู่นี้</div>`;
+                cardsContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px 0;">ไม่พบบทความในหมวดหมู่นี้</div>`;
             } else {
                 filteredArticles.forEach(article => {
                     const card = document.createElement('article');
                     const isLyrics = article.category === 'lyrics';
                     
+                    // ปรับรูปสัดส่วน 16:9 สำหรับหมวดเนื้อเพลง
                     card.className = `card ${isLyrics ? 'card-lyrics' : ''}`;
 
+                    // แปลงลิงก์ YouTube เป็นรูปภาพปก
                     let cardDisplayImg = article.image;
                     const ytId = extractYouTubeId(article.image);
                     if (ytId) {
@@ -1662,73 +1297,6 @@
                 }
             }
         });
-			function renderCards() {
-    cardsContainer.innerHTML = '';
-    
-    const searchKeyword = document.getElementById('search-input')?.value.toLowerCase().trim() || '';
-    
-    // กรองตามหมวดหมู่ และ กรองตามคำค้นหา (ค้นจากชื่อ, เนื้อหาย่อ หรือแท็ก)
-    let filteredArticles = articles.filter(article => {
-        const matchCategory = activeCategory === 'all' || article.category === activeCategory;
-        const matchSearch = !searchKeyword || 
-            article.title.toLowerCase().includes(searchKeyword) ||
-            article.summary.toLowerCase().includes(searchKeyword) ||
-            (article.tags && article.tags.some(tag => tag.toLowerCase().includes(searchKeyword)));
-        
-        return matchCategory && matchSearch;
-    });
-
-    const sortType = sortSelect ? sortSelect.value : 'date-new';
-    
-    filteredArticles.sort((a, b) => {
-        if (sortType === 'name-asc') {
-            return a.title.localeCompare(b.title, 'th', { sensitivity: 'base' });
-        } else if (sortType === 'name-desc') {
-            return b.title.localeCompare(a.title, 'th', { sensitivity: 'base' });
-        } else if (sortType === 'date-old') {
-            return (a.id || 0) - (b.id || 0);
-        } else {
-            return (b.id || 0) - (a.id || 0);
-        }
-    });
-
-    if (filteredArticles.length === 0) {
-        cardsContainer.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px 0;">ไม่พบบทความที่ค้นหา</div>`;
-    } else {
-        filteredArticles.forEach(article => {
-            const card = document.createElement('article');
-            card.className = 'card';
-
-            card.innerHTML = `
-                <div class="card-image-wrap" onclick="openReadModal(${article.id})">
-                    <span class="card-badge">${article.categoryName}</span>
-                    <img src="${article.image}" alt="${article.title}">
-                </div>
-                <div class="card-body" onclick="openReadModal(${article.id})">
-                    <h3 class="card-title">${article.title}</h3>
-                    <p class="card-text">${article.summary}</p>
-                    <div class="card-footer">
-                        <span>อัปเดต: ${article.updated || article.updatedAt || 'ล่าสุด'}</span>
-                        <span class="read-more">อ่านต่อ &rarr;</span>
-                    </div>
-                </div>
-            `;
-            cardsContainer.appendChild(card);
-        });
-    }
-
-    updateCategoryCounts();
-}
     </script>
-    <footer class="site-footer">
-        <div class="footer-content">
-            <p class="copyright">
-                &copy; ©2026 Ku-Bot Factory. All Rights Reserved.
-            </p>
-            <p class="disclaimer">
-                All associated assets, character designs, logos, and story content are copyrights of Kuro Games. This site is an unofficial fan-made archive created for educational and community discussion purposes under "Fair Use" guidelines.
-            </p>
-        </div>
-    </footer>
 </body>
 </html>

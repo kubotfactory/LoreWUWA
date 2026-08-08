@@ -867,6 +867,26 @@
                     <h2 class="content-title" id="current-category-name">ทั้งหมด</h2>
                     <span class="sub-tag">คุย Lore ไม่คุย Leak</span>
                 </div>
+                <div class="content-header">
+                <div>
+                <h2 class="content-title" id="current-category-name">ทั้งหมด</h2>
+                <span class="sub-tag">คุย Lore ไม่คุย Leak</span>
+                </div>
+
+                <!-- เพิ่มช่องค้นหาตรงนี้ -->
+                <div class="search-box">
+                <input type="text" id="search-input" placeholder="🔍 ค้นหาบทความ..." oninput="renderCards()">
+                </div>
+
+    <div class="header-controls">
+        <select id="sort-select" class="sort-select" onchange="renderCards()">
+            <option value="name-asc">เรียงตามชื่อ (ก - ฮ / A - Z)</option>
+            <option value="name-desc">เรียงตามชื่อ (ฮ - ก / Z - A)</option>
+            <option value="date-new" selected>สร้างล่าสุด</option>
+            <option value="date-old">สร้างเก่าสุด</option>
+        </select>
+    </div>
+</div>
                 <div class="header-controls">
                     <select id="sort-select" class="sort-select" onchange="renderCards()">
                         <option value="name-asc">เรียงตามชื่อ (ก - ฮ / A - Z)</option>

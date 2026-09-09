@@ -5,12 +5,14 @@ import GlossaryTerm from './GlossaryTerm.vue'
 import { extractYouTubeId, youtubeEmbed, toParagraphs, cardImage, onImageError } from '../utils/media'
 import { useArticles } from '../composables/useArticles'
 import { useGlossary } from '../composables/useGlossary'
+import { useAuth } from '../composables/useAuth'
 
 const props = defineProps({
   article: { type: Object, default: null },
 })
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'edit'])
 
+const { isAdmin } = useAuth()
 const { relatedTo } = useArticles()
 const { tokenize } = useGlossary()
 
@@ -73,9 +75,19 @@ watch(
             {{ article.title }}
           </h2>
 
-          <span class="mt-3 inline-block rounded-md bg-accent px-2.5 py-0.5 text-xs font-semibold text-ink">
-            {{ article.categoryName }}
-          </span>
+          <div class="mt-3 flex flex-wrap items-center gap-2.5">
+            <span class="inline-block rounded-md bg-accent px-2.5 py-0.5 text-xs font-semibold text-ink">
+              {{ article.categoryName }}
+            </span>
+            <button
+              v-if="isAdmin"
+              type="button"
+              class="rounded-md border border-accent/40 bg-accent/10 px-2.5 py-0.5 text-xs font-medium text-accent transition hover:bg-accent hover:text-ink"
+              @click="emit('edit', article)"
+            >
+              ✏️ แก้ไขบทความนี้
+            </button>
+          </div>
 
           <div class="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted">
             <span>สร้าง: {{ article.createdAt || '-' }}</span>

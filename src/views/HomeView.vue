@@ -119,5 +119,5 @@ async function remove(article) {
     </main>
   </div>
 
-  <ArticleModal :article="openArticle" @close="closeArticle" />
+  <ArticleModal :article="openArticle" @close="closeArticle" @edit="emit('edit', $event)" />
 </template>

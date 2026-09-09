@@ -1,9 +1,15 @@
 <script setup>
-import { nextTick, onUnmounted, ref } from 'vue'
+import { computed, nextTick, onUnmounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
 
 const props = defineProps({
   text: { type: String, required: true },
   entry: { type: Object, required: true },
+})
+const route = useRoute()
+const isCurrentArticle = computed(() => {
+  if (!props.entry.article || !route) return false
+  return route.params?.slug === props.entry.article
 })
 const trigger = ref(null)
 const popup = ref(null)
@@ -140,7 +146,7 @@ onUnmounted(hideNow)
           คำอธิบายจาก Archive ในเกม
         </p>
         <RouterLink
-          v-if="entry.ownArticle && entry.article"
+          v-if="entry.ownArticle && entry.article && !isCurrentArticle"
           :to="`/lore/${entry.article}`"
           class="mt-2.5 inline-block text-[0.72rem] font-medium text-accent hover:underline"
           @click="onNavigate"

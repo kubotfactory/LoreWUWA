@@ -18,14 +18,13 @@ const ytId = computed(() => extractYouTubeId(props.article?.image))
 
 /**
  * เนื้อหา -> ย่อหน้า -> บรรทัด -> ชิ้นข้อความ/คำเฉพาะ
- * ไฮไลต์คำละครั้งต่อหนึ่งย่อหน้าเพื่อไม่ให้อ่านยาก และข้ามคำที่ตรงกับบทความที่กำลังอ่านอยู่
+ * ไฮไลต์คำละครั้งต่อหนึ่งย่อหน้าเพื่อไม่ให้อ่านยาก
  */
 const paragraphs = computed(() => {
   const raw = toParagraphs(props.article?.content)
-  const selfTerm = props.article?.title?.split(/[|｜-]/)[0].trim()
   return raw.map((lines) => {
     const used = new Map()
-    return lines.map((line) => tokenize(line, used, selfTerm))
+    return lines.map((line) => tokenize(line, used))
   })
 })
 const tags = computed(() => (props.article?.tags || []).map((t) => String(t).trim()).filter(Boolean))

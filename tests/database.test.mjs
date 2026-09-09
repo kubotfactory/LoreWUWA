@@ -49,7 +49,7 @@ async function asRole(role, user, sql, args = []) {
 
 test('public can read imported articles but cannot write or call the save function', async () => {
   const result = await asRole('anon', null, 'select jsonb_array_length(articles) as count from public.archive')
-  assert.equal(result.rows[0].count, 19)
+  assert.equal(result.rows[0].count, 31)
   await assert.rejects(asRole('anon', null, "update public.archive set articles = '[]'"), /permission denied/)
   await assert.rejects(asRole('anon', null, "select public.save_archive('[]', 1)"), /permission denied/)
 })

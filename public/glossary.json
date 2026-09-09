@@ -50,7 +50,9 @@
   {
     "term": "Remnant Energy",
     "aliases": [
-      "Remnant"
+      "Remnant",
+      "พลังงานคลื่นความถี่ตกค้าง",
+      "พลังงานตกค้าง"
     ],
     "short": "พลังงานความถี่บริสุทธิ์ที่บันทึกข้อมูล เหตุการณ์ และอารมณ์ในอดีตไว้โดยไม่ยึดติดกับมิติและกาลเวลาปกติ เมื่อเวลาผ่านไปจะย่อยสลายกลายเป็น Reverberation",
     "article": "remnant-energy",
@@ -59,7 +61,9 @@
   {
     "term": "Remnant Creature",
     "aliases": [
-      "Remnant Creatures"
+      "Remnant Creatures",
+      "สิ่งมีชีวิตประเภท Remnant",
+      "สิ่งมีชีวิตจำแลง"
     ],
     "short": "สิ่งมีชีวิตที่เรือนร่างประกอบขึ้นจาก Remnant Energy (เศษเสี้ยวความถี่) โดยตรง เช่น Shorekeeper จึงสามารถบงการความถี่ได้โดยไม่จำเป็นต้องมี Tacet Mark",
     "article": "resonator-s-forte"

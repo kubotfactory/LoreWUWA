@@ -3,7 +3,8 @@ import { after, before, beforeEach, test } from 'node:test'
 import { readFileSync } from 'node:fs'
 import { createServer } from 'vite'
 import { createRenderer, nextTick, reactive, ssrContextKey } from 'vue'
-import { createArchiveStore } from '../src/services/archiveStore.js'
+import { createArchiveStore, rowToArticle, articleToRow } from '../src/services/archiveStore.js'
+
 
 let server, state, content, auth, ArticleForm, initializeAuth, authListener
 let remote, revision, writes, failure, member, authError
@@ -239,3 +240,85 @@ test('new articles still receive unique URLs', async () => {
     assert.equal(remote[1].slug, 'permanent-link')
   })
 })
+
+test('rowToArticle and articleToRow correctly serialize and deserialize data', () => {
+  const row = {
+    id: 1788164776049,
+    slug: 'test-slug',
+    category: 'main',
+    category_name: 'เนื้อเรื่องหลัก',
+    title: 'ทดสอบ',
+    summary: 'สรุป',
+    content: 'เนื้อหา',
+    image: '/img.png',
+    tags: ['A', 'B'],
+    keywords: ['C'],
+    created_at: '09/09/2026',
+    updated_at: '09/09/2026',
+    updated: 'แก้ไข 09/09/2026',
+  }
+
+  const article = rowToArticle(row)
+  assert.equal(article.id, 1788164776049)
+  assert.equal(article.categoryName, 'เนื้อเรื่องหลัก')
+  assert.equal(article.createdAt, '09/09/2026')
+  assert.equal(article.updatedAt, '09/09/2026')
+  assert.deepEqual(article.tags, ['A', 'B'])
+  assert.deepEqual(article.keywords, ['C'])
+
+  const serialized = articleToRow(article)
+  assert.equal(serialized.id, 1788164776049)
+  assert.equal(serialized.category_name, 'เนื้อเรื่องหลัก')
+  assert.equal(serialized.created_at, '09/09/2026')
+  assert.equal(serialized.updated_at, '09/09/2026')
+  assert.deepEqual(serialized.tags, ['A', 'B'])
+  assert.deepEqual(serialized.keywords, ['C'])
+})
+
+test('archiveStore saveArticle and deleteArticle perform row operations against articles table', async () => {
+  const tableRows = []
+  const mockClient = {
+    from: (table) => {
+      assert.equal(table, 'articles')
+      return {
+        upsert: (row) => ({
+          select: async () => {
+            const idx = tableRows.findIndex((r) => r.id === row.id)
+            if (idx !== -1) tableRows[idx] = row
+            else tableRows.push(row)
+            return { data: [row], error: null }
+          },
+        }),
+        delete: () => ({
+          eq: async (col, val) => {
+            assert.equal(col, 'id')
+            const idx = tableRows.findIndex((r) => r.id === val)
+            if (idx !== -1) tableRows.splice(idx, 1)
+            return { error: null }
+          },
+        }),
+      }
+    },
+  }
+
+  const store = createArchiveStore(mockClient)
+  const saved = await store.saveArticle({ id: 123, slug: 'test', category: 'main', title: 'Test Article' })
+  assert.equal(saved.id, 123)
+  assert.equal(tableRows.length, 1)
+  assert.equal(tableRows[0].title, 'Test Article')
+
+  await store.deleteArticle(123)
+  assert.equal(tableRows.length, 0)
+})
+
+test('useContent saveArticle and deleteArticle fall back gracefully to saveArticles when articles table is not available', async () => {
+  const article = { id: 999, slug: 'fallback-test', category: 'main', title: 'Fallback Test', tags: [] }
+  await content.saveArticle(article)
+  assert.ok(remote.some((a) => a.id === 999))
+  assert.ok(state.articles.value.some((a) => a.id === 999))
+
+  await content.deleteArticle(999)
+  assert.ok(!remote.some((a) => a.id === 999))
+  assert.ok(!state.articles.value.some((a) => a.id === 999))
+})
+

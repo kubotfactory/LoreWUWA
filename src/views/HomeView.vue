@@ -13,7 +13,7 @@ const route = useRoute()
 const router = useRouter()
 const { articles, loading, loadError, search, sortBy, filtered, byIdentifier } = useArticles()
 const { isAdmin } = useAuth()
-const { saveArticles } = useContent()
+const { deleteArticle } = useContent()
 
 const emit = defineEmits(['add', 'edit'])
 
@@ -52,9 +52,8 @@ function closeArticle() {
 
 async function remove(article) {
   if (!confirm(`ลบบทความ "${article.title}" ใช่หรือไม่?`)) return
-  const next = articles.value.filter((a) => a.id !== article.id)
   try {
-    await saveArticles(next)
+    await deleteArticle(article.id)
   } catch (err) {
     alert(err.message || 'ลบไม่สำเร็จ')
   }

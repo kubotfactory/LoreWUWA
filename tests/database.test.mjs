@@ -107,3 +107,43 @@ test('rerunning schema and seed preserves live data and revoked admins cannot sa
   await assert.rejects(asRole('authenticated', admin,
     "select public.save_archive('[]', 2)"), /ADMIN_REQUIRED/)
 })
+
+test('migrate_to_articles.sql migrates all 31 articles and enforces RLS on articles table', async () => {
+  await db.query('insert into public.archive_admins values ($1) on conflict do nothing', [admin])
+  await db.query('update public.archive set articles = $1::jsonb where id = 1', [readFileSync(new URL('../public/articles.json', import.meta.url), 'utf8')])
+  await db.exec(readFileSync(new URL('../supabase/migrate_to_articles.sql', import.meta.url), 'utf8'))
+
+  const countRes = await asRole('anon', null, 'select count(*)::int as total from public.articles')
+  assert.equal(countRes.rows[0].total, 31)
+
+  const roverRes = await db.query('select id, slug from public.articles where id in (1788164776049, 1786165562305) order by id')
+  assert.equal(roverRes.rows.length, 2)
+  assert.notEqual(roverRes.rows[0].slug, roverRes.rows[1].slug)
+
+  await assert.rejects(asRole('anon', null,
+    "insert into public.articles (id, slug, category, title) values (999, 'test', 'main', 'Test')"),
+    /permission denied|row-level security/)
+  await assert.rejects(asRole('anon', null,
+    'delete from public.articles where id = 1788164776049'),
+    /permission denied|row-level security/)
+
+  await assert.rejects(asRole('authenticated', visitor,
+    "insert into public.articles (id, slug, category, title) values (999, 'test', 'main', 'Test')"),
+    /row-level security/)
+
+  await asRole('authenticated', admin,
+    "insert into public.articles (id, slug, category, title) values (999, 'admin-post', 'main', 'Admin Post')")
+  const adminPost = await asRole('anon', null, 'select title from public.articles where id = 999')
+  assert.equal(adminPost.rows[0].title, 'Admin Post')
+
+  await asRole('authenticated', admin,
+    "update public.articles set title = 'Updated Post' where id = 999")
+  const updatedPost = await asRole('anon', null, 'select title from public.articles where id = 999')
+  assert.equal(updatedPost.rows[0].title, 'Updated Post')
+
+  await asRole('authenticated', admin,
+    'delete from public.articles where id = 999')
+  const deletedPost = await asRole('anon', null, 'select count(*)::int as total from public.articles where id = 999')
+  assert.equal(deletedPost.rows[0].total, 0)
+})
+

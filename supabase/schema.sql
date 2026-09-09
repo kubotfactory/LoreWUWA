@@ -24,6 +24,36 @@ drop policy if exists archive_admin_self_read on public.archive_admins;
 create policy archive_admin_self_read on public.archive_admins for select to authenticated
   using (user_id = (select auth.uid()));
 
+create table if not exists public.articles (
+  id bigint primary key,
+  slug text unique not null,
+  category text not null,
+  category_name text,
+  title text not null,
+  summary text not null default '',
+  content text not null default '',
+  image text not null default '',
+  tags text[] not null default '{}',
+  keywords text[] default null,
+  created_at text,
+  updated_at text,
+  updated text,
+  created_time timestamptz not null default now(),
+  updated_time timestamptz not null default now()
+);
+
+alter table public.articles enable row level security;
+grant select on public.articles to anon, authenticated;
+grant insert, update, delete on public.articles to authenticated;
+
+drop policy if exists articles_public_read on public.articles;
+create policy articles_public_read on public.articles for select to anon, authenticated using (true);
+
+drop policy if exists articles_admin_write on public.articles;
+create policy articles_admin_write on public.articles for all to authenticated
+  using (exists (select 1 from public.archive_admins where user_id = auth.uid()))
+  with check (exists (select 1 from public.archive_admins where user_id = auth.uid()));
+
 -- Clients cannot write the table directly. This function checks membership
 -- and compares the revision in the same UPDATE that commits the new data.
 create or replace function public.save_archive(p_articles jsonb, p_expected_revision integer)

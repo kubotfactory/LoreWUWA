@@ -13,7 +13,7 @@ const props = defineProps({
 const emit = defineEmits(['close', 'saved'])
 
 const { articles } = useArticles()
-const { uploadImage, saveArticles } = useContent()
+const { uploadImage, saveArticle } = useContent()
 
 const form = ref(blank())
 const file = ref(null)
@@ -96,13 +96,14 @@ async function submit() {
         : { keywords: rawKeywords === '-' ? [] : rawKeywords.split(',').map((k) => k.trim()).filter(Boolean) }
 
     const list = [...articles.value]
+    let targetArticle = null
 
     if (isEdit.value) {
       const idx = list.findIndex((a) => a.id === form.value.id)
       if (idx === -1) throw new Error('ไม่พบบทความที่ต้องการแก้ไข')
       const base = { ...list[idx] }
       if (rawKeywords === '') delete base.keywords
-      list[idx] = {
+      targetArticle = {
         ...base,
         ...keywordField,
         slug: base.slug || uniqueSlug(form.value.title, list, form.value.id),
@@ -118,7 +119,7 @@ async function submit() {
       }
     } else {
       const id = Date.now()
-      list.unshift({
+      targetArticle = {
         id,
         slug: uniqueSlug(form.value.title, list),
         category: form.value.category,
@@ -132,11 +133,11 @@ async function submit() {
         createdAt: today,
         updatedAt: today,
         updated: 'เพิ่งสร้าง',
-      })
+      }
     }
 
     status.value = 'กำลังบันทึกบทความ...'
-    await saveArticles(list)
+    await saveArticle(targetArticle)
     emit('saved')
     emit('close')
   } catch (err) {

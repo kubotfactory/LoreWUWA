@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0b0e14;
+  --color-card: #151922;
+  --color-panel: #11141c;
+  --color-line: #1e2430;
+  --color-accent: #fbcc27;
+  --color-body: #e0e6ed;
+  --color-muted: #8a99ad;
+  --color-danger: #ff4d4d;
+
+  --font-sans: "Kanit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Lagu Sans", "Kanit", sans-serif;
+}
+
+@font-face {
+  font-family: "Lagu Sans";
+  src: url("/fonts/Lagu%20Sans%20ExtraBold.otf") format("opentype");
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lagu Sans";
+  src: url("/fonts/Lagu%20Sans%20Bold.otf") format("opentype");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+  }
+
+  /* ซ่อน scrollbar เดิมของ browser ให้เข้าธีมมืด */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-ink);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2a3242;
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a4557;
+  }
+}
+
+@layer components {
+  .form-control {
+    @apply w-full rounded-lg border border-line bg-ink px-3 py-2.5 text-sm text-body
+           outline-none transition placeholder:text-muted/60
+           focus:border-accent focus:ring-1 focus:ring-accent/40;
+  }
+
+  .form-label {
+    @apply mb-1.5 block text-xs font-medium text-muted;
+  }
+
+  .btn-primary {
+    @apply rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-ink transition
+           hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-ghost {
+    @apply rounded-lg border border-line px-4 py-2.5 text-sm font-medium text-muted
+           transition hover:border-muted hover:text-body;
+  }
+
+  .tag-pill {
+    @apply inline-block rounded-full border border-accent/40 bg-accent/10 px-2.5 py-0.5
+           text-xs text-accent transition hover:bg-accent/20;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

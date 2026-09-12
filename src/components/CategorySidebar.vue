@@ -8,7 +8,7 @@ defineProps({
 })
 
 const router = useRouter()
-const { counts, allTags } = useArticles()
+const { counts } = useArticles()
 
 const items = [ALL_CATEGORY, ...CATEGORIES]
 
@@ -59,22 +59,5 @@ function go(key) {
         {{ item.label }} ({{ counts[item.key] ?? 0 }})
       </option>
     </select>
-
-    <!-- คลังคำเฉพาะ -->
-    <div v-if="allTags.length" class="mt-6 border-t border-line pt-5">
-      <h2 class="mb-3 flex items-center gap-2 text-[0.95rem] text-accent">
-        <span aria-hidden="true">🏷️</span> คำเฉพาะยอดนิยม
-      </h2>
-      <div class="flex flex-wrap gap-1.5">
-        <RouterLink
-          v-for="t in allTags.slice(0, 18)"
-          :key="t.tag"
-          :to="`/tag/${encodeURIComponent(t.tag)}`"
-          class="tag-pill"
-        >
-          {{ t.tag }}<span v-if="t.count > 1" class="ml-1 opacity-60">{{ t.count }}</span>
-        </RouterLink>
-      </div>
-    </div>
   </aside>
 </template>
